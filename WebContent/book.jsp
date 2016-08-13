@@ -23,7 +23,7 @@
 					BazaDanych bd = new BazaDanych();
 					bd.connect();
 					
-					ResultSet rs = bd.downloadEvent(Integer.parseInt(request.getParameter("id").toString()));
+					ResultSet rs = bd.getEvent(Integer.parseInt(request.getParameter("id").toString()));
 					
 					String name_db = "";
 					String city_db = "";
@@ -41,7 +41,7 @@
 						data_db = rs.getString("eventDate");
 					}
 										
-					if(request.getParameter("zarezerwuj")!=null){						 
+					if(request.getParameter("book")!=null){
 						
 						
 						int tickets = Integer.parseInt(request.getParameter("tickets"));
@@ -68,19 +68,19 @@
 					  <div class="panel-heading"><%= name_db %></div>
 					 
 					    <ul class="list-group">
-						    <li class="list-group-item"><b>Miasto: </b><%= city_db %></li>
-						    <li class="list-group-item"><b>Miejsce: </b><%= place_db %></li>
+						    <li class="list-group-item"><b>City: </b><%= city_db %></li>
+						    <li class="list-group-item"><b>Place: </b><%= place_db %></li>
 						    <li class="list-group-item"><b>Data: </b><%= data_db %></li>
-						    <li class="list-group-item"><b>Cena: </b><%= price_db %> zł</li>
-						    <li class="list-group-item"><b>Liczba biletów: </b><%= tickets_db %></li>
+						    <li class="list-group-item"><b>Price: </b><%= price_db %> zł</li>
+						    <li class="list-group-item"><b>Number of tickets: </b><%= tickets_db %></li>
 						    <li class="list-group-item">
 						    	<form action="book.jsp?id=<%= request.getParameter("id") %>" data-toggle="validator" role="form" method="post">
 									<div class="form-group">
-										<label for="tickets"><b>Ile biletów chcesz zarezerwować?</b></label> 
+										<label for="tickets"><b>How many tickets you want to reserve?</b></label>
 										<input type="number" class="form-control" id="tickets" name="tickets" required value="1" min="1" max="<%= tickets_db %>">
 										<div class="help-block with-errors"></div>
 									</div>
-									<input type="submit" class="btn btn-primary btn-block" name="zarezerwuj" value="Zarezerwuj">
+									<input type="submit" class="btn btn-primary btn-block" name="book" value="Book">
 								</form>
 						    </li>
 						  </ul>				    
@@ -89,7 +89,7 @@
 			<%
 				}else{
 				%>
-					<div class="alert alert-warning" role="alert">Należy wybrać wydarzenie do rezerwacji.</div>
+					<div class="alert alert-warning" role="alert">Select the event to book.</div>
 				<%
 				}
 			%>

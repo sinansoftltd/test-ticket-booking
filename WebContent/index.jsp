@@ -26,8 +26,7 @@
 	%>
 	<div class="row">
 		<div class="col-md-12">
-			<div class="alert alert-info text-center" role="alert"">Aby
-				zarezerwować bilet musisz być zalogowany.</div>
+			<div class="alert alert-info text-center" role="alert"">To book a ticket, you must be logged in.</div>
 		</div>
 	</div>
 	<%
@@ -38,12 +37,12 @@
 			<table id="dataTable" class="table table-striped table-bordered">
 				<thead>
 					<tr>
-						<th>Wydarzenie</th>
-						<th>Miasto</th>
-						<th>Miejsce</th>
+						<th>Event</th>
+						<th>City</th>
+						<th>Place</th>
 						<th>Data</th>
-						<th>Ilość biletów</th>
-						<th>Cena biletu</th>
+						<th>Tickets #</th>
+						<th>Ticket price</th>
 						<th>Akcje</th>
 					</tr>
 				</thead>
@@ -52,7 +51,7 @@
 						BazaDanych bd = new BazaDanych();
 						bd.connect();
 
-						ResultSet rs = bd.downloadEvents();
+						ResultSet rs = bd.getEvents();
 						
 						Date today = new Date();
 
@@ -70,19 +69,19 @@
 							out.print("<td>" + rs.getString("price") + " zł</td>");
 							out.print("<td>");
 							if(canBook){
-								out.print("<a href=\"user/client/newMessage.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-info\">Wiadomość</a> ");
+								out.print("<a href=\"user/client/newMessage.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-info\">Message</a> ");
 							}else{
-								out.print("<a href=\"user/client/newMessage.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-info\" disabled>Wiadomość</a> ");
+								out.print("<a href=\"user/client/newMessage.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-info\" disabled>Message</a> ");
 							}
 							if(Integer.parseInt(rs.getString("tickets")) == 0){
-								out.print("<a href=\"book.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-primary\" disabled>Brak biletów</a>");
+								out.print("<a href=\"book.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-primary\" disabled>No tickets</a>");
 							}else if(today.after(event)){
-								out.print("<a href=\"book.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-primary\" disabled>Zarezerwuj</a>");
+								out.print("<a href=\"book.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-primary\" disabled>Book</a>");
 							}else{
 								if(canBook){
-									out.print("<a href=\"book.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-primary\">Zarezerwuj</a>");
+									out.print("<a href=\"book.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-primary\">Book</a>");
 								}else{
-									out.print("<a href=\"book.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-primary\" disabled>Zarezerwuj</a>");
+									out.print("<a href=\"book.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-primary\" disabled>Book</a>");
 								}
 							}
 							out.print("</td>");

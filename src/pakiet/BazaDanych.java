@@ -178,7 +178,7 @@ public class BazaDanych {
 	 * @param id - The logged in user
 	 * @return rs
 	 */
-	public ResultSet downloadEvents(int id) {
+	public ResultSet getEvents(int id) {
 		String query = "SELECT * FROM events WHERE user_id = '" + id + "'";
 
 		ResultSet rs = null;
@@ -196,7 +196,7 @@ public class BazaDanych {
 	 *
 	 * @return rs
 	 */
-	public ResultSet downloadEvents() {
+	public ResultSet getEvents() {
 		String query = "SELECT * FROM events";
 
 		ResultSet rs = null;
@@ -215,7 +215,7 @@ public class BazaDanych {
 	 * @param id - the event
 	 * @return
 	 */
-	public ResultSet downloadEvent(int id) {
+	public ResultSet getEvent(int id) {
 		String query = "SELECT * FROM events WHERE id = " + id;
 		ResultSet rs = null;
 		try {
@@ -284,7 +284,7 @@ public class BazaDanych {
 	 * @param id - User
 	 * @return rs
 	 */
-	public ResultSet downloadReservationList(int id) {
+	public ResultSet getReservationList(int id) {
 		String query = "SELECT e.name, e.city, e.place, e.eventDate, e.price, r.tickets, r.id FROM reservations r INNER JOIN events e ON r.event_id = e.id WHERE r.user_id = " + id;
 		ResultSet rs = null;
 		try {
@@ -302,7 +302,7 @@ public class BazaDanych {
 	 * @param id - booking
 	 * @return
 	 */
-	public ResultSet downloadReservations(int id) {
+	public ResultSet getReservations(int id) {
 		String query = "SELECT e.name, e.city, e.place, e.eventDate, e.price, e.id, r.tickets, r.id FROM reservations r INNER JOIN events e ON r.event_id = e.id WHERE r.id = " + id;
 		ResultSet rs = null;
 		try {
@@ -320,7 +320,7 @@ public class BazaDanych {
 	 * @param id - the event
 	 * @return
 	 */
-	public ResultSet downloadReservationsEvents(int id) {
+	public ResultSet getReservationsEvents(int id) {
 		String query = "SELECT u.email, u.id as userId, r.tickets, r.id as reservationId FROM reservations r INNER JOIN users u ON r.user_id = u.id WHERE r.event_id = " + id;
 		ResultSet rs = null;
 		try {

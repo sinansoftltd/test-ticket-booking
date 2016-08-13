@@ -43,17 +43,17 @@
 						
 						if(bd.register(email, passwordToDb, request.getParameter("type"))){
 							%>
-								<div class="alert alert-success" role="alert">Konto zostało zarejestrowane</div>
+								<div class="alert alert-success" role="alert">The account has been registered</div>
 							<%	
 						}else{
 							%>
-								<div class="alert alert-warning" role="alert">Nie udało się zarejestrować. Spróbuj ponownie później.</div>
+								<div class="alert alert-warning" role="alert">Failed to register. Please try again later.</div>
 							<%						
 						}
 					
 					}else{
 						%>
-							<div class="alert alert-info" role="alert">Takie konto już jest zarejestrowane.</div>
+							<div class="alert alert-info" role="alert">This account is already registered.</div>
 						<%	
 					}
 					bd.disconnect();
@@ -64,10 +64,10 @@
 
 				<form action="register.jsp" data-toggle="validator" role="form" method="post">
 					<div class="form-group">
-						<label for="typ">Typ konta</label> 
+						<label for="typ">account type</label>
 						<select name="type" class="form-control">
-							<option value="organizator" selected>Organizator</option>							
-							<option value="klient" selected="selected">Klient</option>
+							<option value="organizator" selected>Organizer</option>
+							<option value="klient" selected="selected">Customer</option>
 						</select>
 						<div class="help-block with-errors"></div>
 					</div>
@@ -77,13 +77,13 @@
 						<div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
-						<label for="password">Hasło</label> 
+						<label for="password">Password</label>
 						<input type="password" class="form-control" id="password" name="password" required>
 						<div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
-						<label for="password2">Powtórz hasło</label> 
-						<input type="password" class="form-control" id="password2" name="password2" data-match="#password" data-match-error="Musisz poprawnie przepisać hasło" required>
+						<label for="password2">Repeat password</label>
+						<input type="password" class="form-control" id="password2" name="password2" data-match="#password" data-match-error="You have to properly prescribe password" required>
 						<div class="help-block with-errors"></div>
 					</div>
 					<input type="submit" class="btn btn-primary pull-right" name="register" value="register">

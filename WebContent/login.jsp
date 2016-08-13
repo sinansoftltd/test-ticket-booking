@@ -55,7 +55,7 @@ session.removeAttribute("userId");
 			        	response.sendRedirect("index.jsp");
 			        }else{
 			        	%>
-							<div class="alert alert-danger" role="alert">Niepoprawny login lub hasło!</div>
+							<div class="alert alert-danger" role="alert">Incorrect login or password!</div>
 						<%	
 			        }
 					
@@ -73,7 +73,7 @@ session.removeAttribute("userId");
 						<div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
-						<label for="password">Hasło</label> 
+						<label for="password">Password</label>
 						<input type="password" class="form-control" id="password" name="password">
 					</div>					
 					<input type="submit" class="btn btn-primary pull-right" name="login" value="Zaloguj">

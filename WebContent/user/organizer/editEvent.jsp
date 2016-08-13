@@ -27,7 +27,7 @@
 					BazaDanych bd = new BazaDanych();
 					bd.connect();
 					
-					ResultSet rs = bd.downloadEvent(Integer.parseInt(request.getParameter("id").toString()));
+					ResultSet rs = bd.getEvent(Integer.parseInt(request.getParameter("id").toString()));
 					
 					String name_db = "";
 					String city_db = "";

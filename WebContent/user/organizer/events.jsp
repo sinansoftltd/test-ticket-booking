@@ -85,7 +85,7 @@
 				<tbody>
 					<%				
 					
-					ResultSet rs = bd.downloadEvents(Integer.parseInt(session.getAttribute("userId").toString()));
+					ResultSet rs = bd.getEvents(Integer.parseInt(session.getAttribute("userId").toString()));
 					
 					while(rs.next()){
 						out.print("<tr>");

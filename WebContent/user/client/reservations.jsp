@@ -56,7 +56,7 @@
 					BazaDanych bd = new BazaDanych();
 					bd.connect();
 					
-					ResultSet rs = bd.downloadReservationList(Integer.parseInt(session.getAttribute("userId").toString()));
+					ResultSet rs = bd.getReservationList(Integer.parseInt(session.getAttribute("userId").toString()));
 					
 					while(rs.next()){
 						out.print("<tr>");

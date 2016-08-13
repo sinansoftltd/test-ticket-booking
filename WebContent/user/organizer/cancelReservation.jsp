@@ -27,7 +27,7 @@
 					BazaDanych bd = new BazaDanych();
 					bd.connect();
 					
-					ResultSet rs = bd.downloadReservations(Integer.parseInt(request.getParameter("id").toString()));
+					ResultSet rs = bd.getReservations(Integer.parseInt(request.getParameter("id").toString()));
 
 					int id = 0;
 
