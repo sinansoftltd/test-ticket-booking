@@ -1,0 +1,24 @@
+{
+	"sProcessing":   "Przetwarzanie...",
+	"sLengthMenu":   "Pokaż _MENU_ pozycji",
+	"sZeroRecords":  "Nie znaleziono pasujących pozycji",
+	"sInfoThousands":  " ",
+	"sInfo":         "Pozycje od _START_ do _END_ z _TOTAL_ łącznie",
+	"sInfoEmpty":    "Pozycji 0 z 0 dostępnych",
+	"sInfoFiltered": "(filtrowanie spośród _MAX_ dostępnych pozycji)",
+	"sInfoPostFix":  "",
+	"sSearch":       "Szukaj:",
+	"sUrl":          "",
+	"oPaginate": {
+		"sFirst":    "Pierwsza",
+		"sPrevious": "Poprzednia",
+		"sNext":     "Następna",
+		"sLast":     "Ostatnia"
+	},
+	"sEmptyTable":     "Brak danych",
+	"sLoadingRecords": "Wczytywanie...",
+	"oAria": {
+		"sSortAscending":  ": aktywuj, by posortować kolumnę rosnąco",
+		"sSortDescending": ": aktywuj, by posortować kolumnę malejąco"
+	}
+}

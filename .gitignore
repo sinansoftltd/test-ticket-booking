@@ -1,0 +1,29 @@
+### IntelliJ
+/out/
+.idea
+*.iml
+
+### Java template
+*.class
+
+
+# Package Files #
+*.jar
+
+### Eclipse template
+
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
+.project
+
+.classpath
+
