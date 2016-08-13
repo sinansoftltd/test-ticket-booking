@@ -82,17 +82,17 @@
 	
 					<form data-toggle="validator" role="form" method="post">					
 						<div class="form-group">
-							<label for="name">Nazwa</label> 
+							<label for="name">Name</label>
 							<input type="text" class="form-control" id="name" name="name" required value="<%= name_db %>">
 							<div class="help-block with-errors"></div>
 						</div>
 						<div class="form-group">
-							<label for="city">Miasto</label> 
+							<label for="city">City</label>
 							<input type="text" class="form-control" id="city" name="city" required value="<%= city_db %>">
 							<div class="help-block with-errors"></div>
 						</div>
 						<div class="form-group">
-							<label for="place">Miejsce</label> 
+							<label for="place">Place</label>
 							<input type="text" class="form-control" id="place" name="place" required value="<%= place_db %>">
 							<div class="help-block with-errors"></div>
 						</div>
@@ -102,22 +102,22 @@
 							<div class="help-block with-errors"></div>
 						</div>
 						<div class="form-group">
-							<label for="price">Cena biletu</label> 
+							<label for="price">Ticket price</label>
 							<input type="text" class="form-control" id="price" name="price" required pattern="^[0-9]*\.[0-9]{2}$" value="<%= price_db %>">
 							<div class="help-block with-errors"></div>
 						</div>
 						<div class="form-group">
-							<label for="tickets">Ilość biletów</label> 
+							<label for="tickets">Number of tickets</label>
 							<input type="number" class="form-control" id="tickets" name="tickets" required value="<%= tickets_db %>" min="1">
 							<div class="help-block with-errors"></div>
 						</div>
-						<a href="user/organizer/events.jsp" class="btn btn-default pull-left">Powrót</a>
-						<input type="submit" class="btn btn-primary pull-right" name="zapisz" value="Zapisz">
+						<a href="user/organizer/events.jsp" class="btn btn-default pull-left">Return</a>
+						<input type="submit" class="btn btn-primary pull-right" name="zapisz" value="Save">
 					</form>
 			<%
 				}else{
 				%>
-					<div class="alert alert-warning" role="alert">Należy wybrać wydarzenie do edycji.</div>
+					<div class="alert alert-warning" role="alert">Select the event for editing.</div>
 				<%
 				}
 			%>

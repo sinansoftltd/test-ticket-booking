@@ -8,7 +8,7 @@
 
 	<div class="container">	
 		<div class="page-header">
-		  <h1>Wyślij wiadomość</h1>
+		  <h1>Send a message</h1>
 		</div>
 		<div class="row">
 			<div class="col-md-3"></div>
@@ -82,14 +82,14 @@
 						%>
 							<div class="alert alert-success alert-dismissible" role="alert" style="margin-top: 40px;">
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								Twoja wiadomość została wysłana.
+								Your message has been sent.
 							</div>
 						<%
 					}else{
 						%>
 							<div class="alert alert-warning alert-dismissible" role="alert" style="margin-top: 40px;">
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								Nie udało się wysłać wiadomości. Swpóbuj ponownie później.
+								Failed to send the message. Please try again later.
 							</div>
 						<%
 					}				

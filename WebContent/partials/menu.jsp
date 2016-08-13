@@ -18,7 +18,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.jsp">Rezerwacje biletów</a>
+      <a class="navbar-brand" href="index.jsp">Ticket Reservations</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -27,8 +27,8 @@
       	<%
       	if(session.getAttribute("userId") == null){
       	%>
-        <li><a href="register.jsp">Rejestracja</a></li>
-        <li><a href="login.jsp">Logowanie</a></li>
+        <li><a href="register.jsp">Registration</a></li>
+        <li><a href="login.jsp">Log in</a></li>
         <%
       	}else{
       		
@@ -53,14 +53,14 @@
         <%
       		}else{
       	%>
-      			<li><a href="user/client/messages.jsp">Wiadomości <span class="badge"><%= count %></span></a></li>
+      			<li><a href="user/client/messages.jsp">Messages <span class="badge"><%= count %></span></a></li>
       			<li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= session.getAttribute("userLogin") %> <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
-		            <li><a href="user/organizer/events.jsp">Moje wydarzenia</a></li>
-		            <li><a href="user/client/reservations.jsp">Moje rezerwacje</a></li>
+		            <li><a href="user/organizer/events.jsp">My events</a></li>
+		            <li><a href="user/client/reservations.jsp">My reservations</a></li>
 		            <li role="separator" class="divider"></li>
-		            <li><a href="login.jsp">Wyloguj</a></li>
+		            <li><a href="login.jsp">Log out</a></li>
 		          </ul>
 		        </li>
       			

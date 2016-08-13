@@ -52,7 +52,7 @@ po anulowaniu rezerwacji od razu nastepuje przekierowanie na strone z rezerwacja
 								response.sendRedirect("reservations.jsp");
 							}else{
 								%>
-									<div class="alert alert-warning" role="alert">Nie udało się dodać wydarzenia. Spróbuj ponownie później.</div>
+									<div class="alert alert-warning" role="alert">Failed to add the event. Please try again later.</div>
 								<%
 							}	
 						}else{
@@ -60,7 +60,7 @@ po anulowaniu rezerwacji od razu nastepuje przekierowanie na strone z rezerwacja
 								response.sendRedirect("reservations.jsp");
 							}else{
 								%>
-									<div class="alert alert-warning" role="alert">Nie udało się anulować rezerwacji. Spróbuj ponownie później.</div>
+									<div class="alert alert-warning" role="alert">Could not cancel your reservation. Please try again later.</div>
 								<%
 							}	
 						}							
@@ -78,20 +78,20 @@ po anulowaniu rezerwacji od razu nastepuje przekierowanie na strone z rezerwacja
 					  <div class="panel-heading"><%= name_db %></div>
 					  <div class="panel-body">
 					    <ul class="list-group">
-						    <li class="list-group-item"><b>Miasto: </b><%= city_db %></li>
-						    <li class="list-group-item"><b>Miejsce: </b><%= place_db %></li>
+						    <li class="list-group-item"><b>City: </b><%= city_db %></li>
+						    <li class="list-group-item"><b>Place: </b><%= place_db %></li>
 						    <li class="list-group-item"><b>Data: </b><%= data_db %></li>
-						    <li class="list-group-item"><b>Cena: </b><%= price_db %> zł</li>
-						    <li class="list-group-item"><b>Zarezerwowanych biletów: </b><%= tickets_db %></li>
+						    <li class="list-group-item"><b>Price: </b><%= price_db %> zł</li>
+						    <li class="list-group-item"><b>reserved tickets: </b><%= tickets_db %></li>
 						    <li class="list-group-item">
 						    	<form action="user/client/cancelReservation.jsp?id=<%= request.getParameter("id") %>" data-toggle="validator" role="form" method="post">
 									<div class="form-group">
-										<label for="tickets"><b>Z ilu biletów chcesz zrezygnować?</b></label> 
+										<label for="tickets"><b>How many tickets you want to quit?</b></label>
 										<input type="number" class="form-control" id="tickets" name="tickets" required value="1" min="1" max="<%= tickets_db %>">
 										<div class="help-block with-errors"></div>
 									</div>
-									<input type="submit" class="btn btn-primary btn-block" name="anuluj" value="Anuluj rezerwację">
-									<a href="user/client/reservations.jsp" class="btn btn-default btn-block">Powrót</a>
+									<input type="submit" class="btn btn-primary btn-block" name="anuluj" value="Cancel reservation">
+									<a href="user/client/reservations.jsp" class="btn btn-default btn-block">Return</a>
 								</form>
 						    </li>
 						  </ul>
@@ -102,7 +102,7 @@ po anulowaniu rezerwacji od razu nastepuje przekierowanie na strone z rezerwacja
 			<%
 				}else{
 				%>
-					<div class="alert alert-warning" role="alert">Należy wybrać wydarzenie do anulowania.</div>
+					<div class="alert alert-warning" role="alert">Select the event to be canceled.</div>
 				<%
 				}
 			%>

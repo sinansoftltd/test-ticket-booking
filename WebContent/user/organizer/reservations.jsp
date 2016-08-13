@@ -55,8 +55,8 @@ String eventName = rs.getString("name");
 		</div>	
 	<div class="row">
 		<div class="col-md-12">
-			<a class="btn btn-info" href="user/client/newMessage.jsp?eventId=<%= request.getParameter("id") %>">Wyślij wiadomość do wszystkich</a>
-			<button class="btn btn-warning" onclick="confirmCancel(<%= request.getParameter("id") %>)">Anuluj wszystkie rezerwacje</button>
+			<a class="btn btn-info" href="user/client/newMessage.jsp?eventId=<%= request.getParameter("id") %>">Send a message to all</a>
+			<button class="btn btn-warning" onclick="confirmCancel(<%= request.getParameter("id") %>)">Cancel all reservations</button>
 		</div>
 	</div>
 	<div class="row" style="margin-top: 40px;">
@@ -102,10 +102,10 @@ String eventName = rs.getString("name");
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Anuluj rezerwację</h4>
+        <h4 class="modal-title">Cancel reservation</h4>
       </div>
       <div class="modal-body">
-        <p>Na pewno anulować wybraną rezerwację?</p>
+        <p>Certainly cancel the selected reservations?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Nie</button>
@@ -120,14 +120,14 @@ String eventName = rs.getString("name");
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Anuluj wszystkie rezerwacje</h4>
+        <h4 class="modal-title">Cancel all reservations</h4>
       </div>
       <div class="modal-body">
-        <p>Na pewno anulować wszystkie rezerwacje?</p>
+        <p>Certainly cancel all reservations?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Nie</button>
-        <button type="button" class="btn btn-danger" onclick="cancelReservations()">Tak</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-danger" onclick="cancelReservations()">So</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

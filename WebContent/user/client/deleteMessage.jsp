@@ -34,8 +34,8 @@ jest wyswietlana strona z lista wiadomosci.
 						response.sendRedirect("messages.jsp");
 					} else {
 			%>
-			<div class="alert alert-warning" role="alert">Nie udało się
-				usunąć wiadomości. Spróbuj ponownie później.</div>
+			<div class="alert alert-warning" role="alert">Failed to
+				delete the messages. Please try again later.</div>
 			<%
 				}
 
@@ -45,8 +45,8 @@ jest wyswietlana strona z lista wiadomosci.
 			<%
 				} else {
 			%>
-			<div class="alert alert-warning" role="alert">Należy wybrać
-				wiadomość do usunięcia.</div>
+			<div class="alert alert-warning" role="alert">select
+				the message to delete.</div>
 			<%
 				}
 			%>

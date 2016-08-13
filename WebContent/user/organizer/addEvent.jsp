@@ -43,7 +43,7 @@
 						response.sendRedirect("events.jsp");
 					}else{
 						%>
-							<div class="alert alert-warning" role="alert">Nie udało się dodać wydarzenia. Spróbuj ponownie później.</div>
+							<div class="alert alert-warning" role="alert">Failed to add the event. Please try again later.</div>
 						<%
 					}
 					
@@ -58,17 +58,17 @@
 
 				<form data-toggle="validator" role="form" method="post">					
 					<div class="form-group">
-						<label for="name">Nazwa</label> 
+						<label for="name">Name</label>
 						<input type="text" class="form-control" id="name" name="name" required>
 						<div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
-						<label for="city">Miasto</label> 
+						<label for="city">City</label>
 						<input type="text" class="form-control" id="city" name="city" required>
 						<div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
-						<label for="place">Miejsce</label> 
+						<label for="place">Place</label>
 						<input type="text" class="form-control" id="place" name="place" required>
 						<div class="help-block with-errors"></div>
 					</div>
@@ -78,17 +78,17 @@
 						<div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
-						<label for="price">Cena biletu</label> 
+						<label for="price">Ticket price</label>
 						<input type="text" class="form-control" id="price" name="price" required pattern="^[0-9]*\.[0-9]{2}$">
 						<div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
-						<label for="tickets">Ilość biletów</label> 
+						<label for="tickets">Number of tickets</label>
 						<input type="number" class="form-control" id="tickets" name="tickets" required value="1" min="1">
 						<div class="help-block with-errors"></div>
 					</div>
-					<a href="user/organizer/events.jsp" class="btn btn-default pull-left">Powrót</a>
-					<input type="submit" class="btn btn-primary pull-right" name="dodaj" value="Dodaj wydarzenie">
+					<a href="user/organizer/events.jsp" class="btn btn-default pull-left">Return</a>
+					<input type="submit" class="btn btn-primary pull-right" name="dodaj" value="Add event">
 				</form>
 
 			</div>

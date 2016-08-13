@@ -30,8 +30,8 @@
 						response.sendRedirect("reservations.jsp?id="+request.getParameter("id").toString());
 					} else {
 			%>
-			<div class="alert alert-warning" role="alert">Nie udało się
-				anulować rezerwacji. Spróbuj ponownie później.</div>
+			<div class="alert alert-warning" role="alert">Failed to
+				cancel your reservation. Please try again later.</div>
 			<%
 				}
 
@@ -41,8 +41,8 @@
 			<%
 				} else {
 			%>
-			<div class="alert alert-warning" role="alert">Należy wybrać
-				wydarzenie do anulowania.</div>
+			<div class="alert alert-warning" role="alert">select
+				to cancel the event.</div>
 			<%
 				}
 			%>
