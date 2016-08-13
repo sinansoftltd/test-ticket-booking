@@ -25,7 +25,7 @@
 				if(request.getParameter("dodaj")!=null){
 					 
 					BazaDanych bd = new BazaDanych();
-					bd.polacz();
+					bd.connect();
 					
 					String name = request.getParameter("name");
 					String city = request.getParameter("city");
@@ -39,7 +39,7 @@
 					Date data = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(data_string);
 					Timestamp eventDate = new Timestamp(data.getTime());
 					
-					if(bd.dodajWydarzenie(Integer.parseInt(session.getAttribute("userId").toString()), name, city, place, eventDate, tickets, price)){
+					if(bd.addEvent(Integer.parseInt(session.getAttribute("userId").toString()), name, city, place, eventDate, tickets, price)){
 						response.sendRedirect("events.jsp");
 					}else{
 						%>
@@ -47,7 +47,7 @@
 						<%
 					}
 					
-					bd.rozlacz();
+					bd.disconnect();
 					
 					
 				}

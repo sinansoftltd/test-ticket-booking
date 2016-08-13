@@ -27,9 +27,9 @@ Jest to strona, ktora wyswietla pojedyncza wiadomosc
 */
 
 BazaDanych bd = new BazaDanych();
-bd.polacz();
+bd.connect();
 
-ResultSet rs = bd.pobierzWiadomosc(Integer.parseInt(request.getParameter("id")));
+ResultSet rs = bd.getMessage(Integer.parseInt(request.getParameter("id")));
 rs.next();
 
 String eventName = rs.getString("name");
@@ -38,7 +38,7 @@ String message = rs.getString("message");
 String title = rs.getString("title");
 int messageId = rs.getInt("messageId");
 
-bd.rozlacz();
+bd.disconnect();
 %>
 
 <div class="container">

@@ -25,9 +25,9 @@
 				if(request.getParameter("id")!=null){
 					
 					BazaDanych bd = new BazaDanych();
-					bd.polacz();
+					bd.connect();
 					
-					ResultSet rs = bd.pobierzWydarzenie(Integer.parseInt(request.getParameter("id").toString()));
+					ResultSet rs = bd.downloadEvent(Integer.parseInt(request.getParameter("id").toString()));
 					
 					String name_db = "";
 					String city_db = "";
@@ -62,7 +62,7 @@
 						Date data = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(data_string);
 						Timestamp eventDate = new Timestamp(data.getTime());
 						
-						if(bd.edytujWydarzenie(Integer.parseInt(request.getParameter("id").toString()), name, city, place, eventDate, tickets, price)){
+						if(bd.editEvent(Integer.parseInt(request.getParameter("id").toString()), name, city, place, eventDate, tickets, price)){
 							response.sendRedirect("events.jsp");
 						}else{
 							%>
@@ -74,7 +74,7 @@
 						
 					}
 					
-					bd.rozlacz();
+					bd.disconnect();
 					
 					%>
 					

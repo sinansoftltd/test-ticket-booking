@@ -54,9 +54,9 @@
 					*/
 					
 					BazaDanych bd = new BazaDanych();
-					bd.polacz();
+					bd.connect();
 					
-					ResultSet rs = bd.pobierzListeRezerwacji(Integer.parseInt(session.getAttribute("userId").toString()));
+					ResultSet rs = bd.downloadReservationList(Integer.parseInt(session.getAttribute("userId").toString()));
 					
 					while(rs.next()){
 						out.print("<tr>");
@@ -75,7 +75,7 @@
 						out.print("</tr>");
 					}
 					
-					bd.rozlacz();
+					bd.disconnect();
 					%>
 				</tbody>
 			</table>

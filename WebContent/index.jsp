@@ -50,9 +50,9 @@
 				<tbody>
 					<%
 						BazaDanych bd = new BazaDanych();
-						bd.polacz();
+						bd.connect();
 
-						ResultSet rs = bd.pobierzWydarzenia();
+						ResultSet rs = bd.downloadEvents();
 						
 						Date today = new Date();
 
@@ -90,7 +90,7 @@
 							out.print("</tr>");
 						}
 
-						bd.rozlacz();
+						bd.disconnect();
 					%>
 				</tbody>
 			</table>

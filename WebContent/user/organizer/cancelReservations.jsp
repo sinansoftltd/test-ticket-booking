@@ -24,9 +24,9 @@
 				if (request.getParameter("id") != null) {
 
 					BazaDanych bd = new BazaDanych();
-					bd.polacz();			
+					bd.connect();
 
-					if (bd.anulujWszystkieRezerwacje(Integer.parseInt(request.getParameter("id").toString()))) {
+					if (bd.cancelAllReservations(Integer.parseInt(request.getParameter("id").toString()))) {
 						response.sendRedirect("reservations.jsp?id="+request.getParameter("id").toString());
 					} else {
 			%>
@@ -35,7 +35,7 @@
 			<%
 				}
 
-					bd.rozlacz();
+					bd.disconnect();
 			%>
 
 			<%

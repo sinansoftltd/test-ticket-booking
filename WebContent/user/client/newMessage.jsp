@@ -22,7 +22,7 @@
 				request.setCharacterEncoding("utf-8");
 				
 				BazaDanych bd = new BazaDanych();
-				bd.polacz();
+				bd.connect();
 				
 				int recipient_id = 0;
 				String event_name = "";
@@ -34,36 +34,36 @@
 				if(request.getParameter("eventId")==null){
 				
 					if(request.getParameter("messageId") == null){
-						ResultSet rs = bd.pobierzWydarzenie(Integer.parseInt(request.getParameter("id")));
+						ResultSet rs = bd.downloadEvent(Integer.parseInt(request.getParameter("id")));
 						rs.next();
 						
 						recipient_id = rs.getInt("user_id");
 						event_name = rs.getString("name");
 						event_id = rs.getInt("id");
-						recipient_email = bd.pobierzEmailUzytkownika(recipient_id);
+						recipient_email = bd.getEmail(recipient_id);
 					}else{
-						ResultSet rs = bd.odpowiedz(Integer.parseInt(request.getParameter("messageId")));
+						ResultSet rs = bd.reply(Integer.parseInt(request.getParameter("messageId")));
 						rs.next();
 						
 						recipient_id = rs.getInt("user_id");
 						event_name = rs.getString("name");
 						event_id = rs.getInt("id");
 						re_title = "RE: "+rs.getString("title");
-						recipient_email = bd.pobierzEmailUzytkownika(recipient_id);
+						recipient_email = bd.getEmail(recipient_id);
 					}
 					
 				}else{					
 					
 					if(request.getParameter("id")!=null){
-						ResultSet rs = bd.pobierzWydarzenie(Integer.parseInt(request.getParameter("eventId")));
+						ResultSet rs = bd.downloadEvent(Integer.parseInt(request.getParameter("eventId")));
 						rs.next();
 						
 						recipient_id = Integer.parseInt(request.getParameter("id"));
 						event_name = rs.getString("name");
 						event_id = rs.getInt("id");
-						recipient_email = bd.pobierzEmailUzytkownika(recipient_id);
+						recipient_email = bd.getEmail(recipient_id);
 					}else{
-						ResultSet rs = bd.pobierzWydarzenie(Integer.parseInt(request.getParameter("eventId")));
+						ResultSet rs = bd.downloadEvent(Integer.parseInt(request.getParameter("eventId")));
 						rs.next();
 						
 						event_name = rs.getString("name");
@@ -78,7 +78,7 @@
 					String title = request.getParameter("title");
 					String message = request.getParameter("message");
 									
-					if(bd.wyslijWiadomosc(recipient_id, Integer.parseInt(session.getAttribute("userId").toString()), event_id, title, message)){
+					if(bd.sendMessage(recipient_id, Integer.parseInt(session.getAttribute("userId").toString()), event_id, title, message)){
 						%>
 							<div class="alert alert-success alert-dismissible" role="alert" style="margin-top: 40px;">
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -97,7 +97,7 @@
 					
 				}
 				
-				bd.rozlacz();
+				bd.disconnect();
 				
 				%>	
 				

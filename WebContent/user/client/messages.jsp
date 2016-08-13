@@ -49,9 +49,9 @@
 					*/
 					
 						BazaDanych bd = new BazaDanych();
-						bd.polacz();
+						bd.connect();
 
-						ResultSet rs = bd.pobierzWiadomosci(Integer.parseInt(session.getAttribute("userId").toString()));
+						ResultSet rs = bd.getNews(Integer.parseInt(session.getAttribute("userId").toString()));
 
 						while (rs.next()) {
 							
@@ -75,7 +75,7 @@
 							out.print("</tr>");
 						}
 
-						bd.rozlacz();
+						bd.disconnect();
 					%>
 				</tbody>
 			</table>

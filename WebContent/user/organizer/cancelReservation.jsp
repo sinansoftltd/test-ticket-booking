@@ -25,9 +25,9 @@
 				if (request.getParameter("id") != null) {
 
 					BazaDanych bd = new BazaDanych();
-					bd.polacz();			
+					bd.connect();
 					
-					ResultSet rs = bd.pobierzRezerwacje(Integer.parseInt(request.getParameter("id").toString()));
+					ResultSet rs = bd.downloadReservations(Integer.parseInt(request.getParameter("id").toString()));
 
 					int id = 0;
 
@@ -35,7 +35,7 @@
 						id = rs.getInt("id");
 					}
 
-					if (bd.anulujRezerwacje(Integer.parseInt(request.getParameter("id").toString()))) {
+					if (bd.cancelReservations(Integer.parseInt(request.getParameter("id").toString()))) {
 						response.sendRedirect("reservations.jsp?id="+id);
 					} else {
 			%>
@@ -44,7 +44,7 @@
 			<%
 				}
 
-					bd.rozlacz();
+					bd.disconnect();
 			%>
 
 			<%

@@ -41,9 +41,9 @@
 Strona do wyświetlania rezerwacji wybranego wydarzenia
 */
 BazaDanych bd = new BazaDanych();
-bd.polacz();
+bd.connect();
 
-ResultSet rs = bd.pobierzWydarzenie(Integer.parseInt(request.getParameter("id")));
+ResultSet rs = bd.downloadEvent(Integer.parseInt(request.getParameter("id")));
 rs.next();
 
 String eventName = rs.getString("name");
@@ -73,7 +73,7 @@ String eventName = rs.getString("name");
 				<tbody>
 					<%	
 										
-					rs = bd.pobierzRezerwacjeWydarzenia(Integer.parseInt(request.getParameter("id")));
+					rs = bd.downloadReservationsEvents(Integer.parseInt(request.getParameter("id")));
 					
 					while(rs.next()){
 						out.print("<tr>");
@@ -89,7 +89,7 @@ String eventName = rs.getString("name");
 						out.print("</tr>");
 					}
 					
-					bd.rozlacz();
+					bd.disconnect();
 					%>
 				</tbody>
 			</table>

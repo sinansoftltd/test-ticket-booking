@@ -33,11 +33,11 @@
       	}else{
       		
       		BazaDanych bd = new BazaDanych();
-      		bd.polacz();
+      		bd.connect();
       		
-      		int count = bd.policzNoweWiadomosci(Integer.parseInt(session.getAttribute("userId").toString()));
+      		int count = bd.countNewNews(Integer.parseInt(session.getAttribute("userId").toString()));
       		
-      		bd.rozlacz();
+      		bd.disconnect();
       		
       		if(session.getAttribute("userType").toString().equals("klient")){
         %>

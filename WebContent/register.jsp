@@ -18,14 +18,14 @@
 				*/
 				request.setCharacterEncoding("utf-8");
 				
-				if(request.getParameter("zarejestruj")!=null){
+				if(request.getParameter("register")!=null){
 					 
 					BazaDanych bd = new BazaDanych();
-					bd.polacz();
+					bd.connect();
 					
 					String email = request.getParameter("email");
 					
-					if(bd.sprawdzLogin(email)){					
+					if(bd.checkLogin(email)){
 					
 						String password = request.getParameter("password");
 						
@@ -41,7 +41,7 @@
 				        
 				        String passwordToDb = sb.toString();
 						
-						if(bd.zarejestruj(email, passwordToDb, request.getParameter("type"))){
+						if(bd.register(email, passwordToDb, request.getParameter("type"))){
 							%>
 								<div class="alert alert-success" role="alert">Konto zostało zarejestrowane</div>
 							<%	
@@ -56,7 +56,7 @@
 							<div class="alert alert-info" role="alert">Takie konto już jest zarejestrowane.</div>
 						<%	
 					}
-					bd.rozlacz();
+					bd.disconnect();
 					
 				}
 				
@@ -86,7 +86,7 @@
 						<input type="password" class="form-control" id="password2" name="password2" data-match="#password" data-match-error="Musisz poprawnie przepisać hasło" required>
 						<div class="help-block with-errors"></div>
 					</div>
-					<input type="submit" class="btn btn-primary pull-right" name="zarejestruj" value="Zarejestruj">
+					<input type="submit" class="btn btn-primary pull-right" name="register" value="register">
 				</form>
 
 			</div>

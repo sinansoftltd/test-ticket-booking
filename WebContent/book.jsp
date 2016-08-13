@@ -21,9 +21,9 @@
 				if(request.getParameter("id")!=null){
 					
 					BazaDanych bd = new BazaDanych();
-					bd.polacz();
+					bd.connect();
 					
-					ResultSet rs = bd.pobierzWydarzenie(Integer.parseInt(request.getParameter("id").toString()));
+					ResultSet rs = bd.downloadEvent(Integer.parseInt(request.getParameter("id").toString()));
 					
 					String name_db = "";
 					String city_db = "";
@@ -47,7 +47,7 @@
 						int tickets = Integer.parseInt(request.getParameter("tickets"));
 						
 						
-						if(bd.zarezerwujBilety(Integer.parseInt(request.getParameter("id").toString()), Integer.parseInt(session.getAttribute("userId").toString()), tickets)){
+						if(bd.bookTickets(Integer.parseInt(request.getParameter("id").toString()), Integer.parseInt(session.getAttribute("userId").toString()), tickets)){
 							response.sendRedirect("user/client/reservations.jsp");
 						}else{
 							%>
@@ -59,7 +59,7 @@
 						
 					}
 					
-					bd.rozlacz();
+					bd.disconnect();
 					
 					%>
 					

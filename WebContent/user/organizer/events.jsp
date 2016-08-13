@@ -42,10 +42,10 @@
 	Strona do wyświetlania wydarzeń zalogowanego organizatora. 
 	*/
 	BazaDanych bd = new BazaDanych();
-	bd.polacz();
+	bd.connect();
 	
 	if(request.getParameter("deleteId")!=null){
-		if(bd.usunWydarzenie(Integer.parseInt(request.getParameter("deleteId").toString()))){
+		if(bd.removeEvent(Integer.parseInt(request.getParameter("deleteId").toString()))){
 			%>
 			
 					<div class="alert alert-success alert-dismissible" role="alert" style="margin-top: 40px;">
@@ -85,7 +85,7 @@
 				<tbody>
 					<%				
 					
-					ResultSet rs = bd.pobierzWydarzenia(Integer.parseInt(session.getAttribute("userId").toString()));
+					ResultSet rs = bd.downloadEvents(Integer.parseInt(session.getAttribute("userId").toString()));
 					
 					while(rs.next()){
 						out.print("<tr>");
@@ -104,7 +104,7 @@
 						out.print("</tr>");
 					}
 					
-					bd.rozlacz();
+					bd.disconnect();
 					%>
 				</tbody>
 			</table>

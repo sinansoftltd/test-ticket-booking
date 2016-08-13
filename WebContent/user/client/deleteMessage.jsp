@@ -28,9 +28,9 @@ jest wyswietlana strona z lista wiadomosci.
 				if (request.getParameter("id") != null) {
 
 					BazaDanych bd = new BazaDanych();
-					bd.polacz();						
+					bd.connect();
 
-					if (bd.usunWiadomosc(Integer.parseInt(request.getParameter("id").toString()))) {
+					if (bd.removeMessage(Integer.parseInt(request.getParameter("id").toString()))) {
 						response.sendRedirect("messages.jsp");
 					} else {
 			%>
@@ -39,7 +39,7 @@ jest wyswietlana strona z lista wiadomosci.
 			<%
 				}
 
-					bd.rozlacz();
+					bd.disconnect();
 			%>
 
 			<%

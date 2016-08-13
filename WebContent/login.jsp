@@ -28,7 +28,7 @@ session.removeAttribute("userId");
 				if(request.getParameter("login")!=null){
 					 
 					BazaDanych bd = new BazaDanych();
-					bd.polacz();
+					bd.connect();
 					
 					String email = request.getParameter("email");
 					String password = request.getParameter("password");
@@ -45,7 +45,7 @@ session.removeAttribute("userId");
 			        
 			        String passwordToDb = sb.toString();
 			        
-			        ResultSet rs = bd.zaloguj(email, passwordToDb);
+			        ResultSet rs = bd.log(email, passwordToDb);
 			        
 			        if(rs != null && rs.next()){
 			        	session.setAttribute( "userLogin", rs.getString("email"));
@@ -60,7 +60,7 @@ session.removeAttribute("userId");
 			        }
 					
 					
-					bd.rozlacz();
+					bd.disconnect();
 					
 				}
 				

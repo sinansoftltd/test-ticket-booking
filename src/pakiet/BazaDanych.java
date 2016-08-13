@@ -33,7 +33,7 @@ public class BazaDanych {
 	 * You have to connect to it using this method and after the operation to end the connection
 	 * Using the method disconnects.
 	 */
-	public void polacz(){
+	public void connect(){
 		String driver = "com.mysql.jdbc.Driver";
 		String url = "jdbc:mysql://" + server + ":3306/" + dbName + "?useUnicode=true&characterEncoding=utf8";
 		
@@ -52,7 +52,7 @@ public class BazaDanych {
 	/**
 	 * The method terminates the connection to the database.
 	 */
-	public void rozlacz(){
+	public void disconnect(){
 		try {
 			statement.close();
 			connection.close();
@@ -69,7 +69,7 @@ public class BazaDanych {
 	 * @param type - type of user
 	 * @return true/false
 	 */
-	public boolean zarejestruj(String email, String password, String type){
+	public boolean register(String email, String password, String type){
 		String query = "INSERT INTO users(email,password,type) VALUES('" + email + "','" + password + "','" + type + "')";
 		try {
 			statement.executeUpdate(query);
@@ -87,7 +87,7 @@ public class BazaDanych {
 	 * @param email - Email to check
 	 * @return true/false
 	 */
-	public boolean sprawdzLogin(String email){
+	public boolean checkLogin(String email){
 		String query = "SELECT count(*) as result FROM users WHERE email = '" + email + "'";
 		ResultSet rs;
 		try {
@@ -112,7 +112,7 @@ public class BazaDanych {
 	 * @param password - user password
 	 * @return rs
 	 */
-	public ResultSet zaloguj(String email, String password) {
+	public ResultSet log(String email, String password) {
 		String query = "SELECT * FROM users WHERE email = '" + email + "' and password = '" + password + "'";
 		ResultSet rs = null;
 		try {
@@ -136,7 +136,7 @@ public class BazaDanych {
 	 * @param price     - price ticket
 	 * @return true/false
 	 */
-	public boolean dodajWydarzenie(int userId, String name, String city, String place, Timestamp eventDate, int tickets, double price) {
+	public boolean addEvent(int userId, String name, String city, String place, Timestamp eventDate, int tickets, double price) {
 		String query = "INSERT INTO events(user_id, name,city,place,eventDate,price,tickets) VALUES(" + userId + ",'" + name + "','" + city + "','" + place + "','" + eventDate + "'," + price + "," + tickets + ")";
 		try {
 			statement.executeUpdate(query);
@@ -160,7 +160,7 @@ public class BazaDanych {
 	 * @param price     - new price
 	 * @return true/false
 	 */
-	public boolean edytujWydarzenie(int id, String name, String city, String place, Timestamp eventDate, int tickets, double price) {
+	public boolean editEvent(int id, String name, String city, String place, Timestamp eventDate, int tickets, double price) {
 		String query = "UPDATE events SET name = '" + name + "',city = '" + city + "', place = '" + place + "', eventDate = '" + eventDate + "',tickets = " + tickets + ", price = " + price + " WHERE id = " + id;
 		try {
 			statement.executeUpdate(query);
@@ -178,7 +178,7 @@ public class BazaDanych {
 	 * @param id - The logged in user
 	 * @return rs
 	 */
-	public ResultSet pobierzWydarzenia(int id) {
+	public ResultSet downloadEvents(int id) {
 		String query = "SELECT * FROM events WHERE user_id = '" + id + "'";
 
 		ResultSet rs = null;
@@ -196,7 +196,7 @@ public class BazaDanych {
 	 *
 	 * @return rs
 	 */
-	public ResultSet pobierzWydarzenia() {
+	public ResultSet downloadEvents() {
 		String query = "SELECT * FROM events";
 
 		ResultSet rs = null;
@@ -215,7 +215,7 @@ public class BazaDanych {
 	 * @param id - the event
 	 * @return
 	 */
-	public ResultSet pobierzWydarzenie(int id) {
+	public ResultSet downloadEvent(int id) {
 		String query = "SELECT * FROM events WHERE id = " + id;
 		ResultSet rs = null;
 		try {
@@ -233,7 +233,7 @@ public class BazaDanych {
 	 * @param id - the event
 	 * @return
 	 */
-	public boolean usunWydarzenie(int id) {
+	public boolean removeEvent(int id) {
 		String query = "DELETE FROM events WHERE id = " + id;
 		try {
 			statement.executeUpdate(query);
@@ -254,7 +254,7 @@ public class BazaDanych {
 	 * @param tickets - the number of reserved tickets
 	 * @return true/false
 	 */
-	public boolean zarezerwujBilety(int event, int user, int tickets) {
+	public boolean bookTickets(int event, int user, int tickets) {
 		String query = "INSERT INTO reservations(event_id,user_id,tickets) VALUES(" + event + "," + user + "," + tickets + ")";
 		String query_get = "SELECT tickets FROM events WHERE id = " + event;
 
@@ -284,7 +284,7 @@ public class BazaDanych {
 	 * @param id - User
 	 * @return rs
 	 */
-	public ResultSet pobierzListeRezerwacji(int id) {
+	public ResultSet downloadReservationList(int id) {
 		String query = "SELECT e.name, e.city, e.place, e.eventDate, e.price, r.tickets, r.id FROM reservations r INNER JOIN events e ON r.event_id = e.id WHERE r.user_id = " + id;
 		ResultSet rs = null;
 		try {
@@ -302,7 +302,7 @@ public class BazaDanych {
 	 * @param id - booking
 	 * @return
 	 */
-	public ResultSet pobierzRezerwacje(int id) {
+	public ResultSet downloadReservations(int id) {
 		String query = "SELECT e.name, e.city, e.place, e.eventDate, e.price, e.id, r.tickets, r.id FROM reservations r INNER JOIN events e ON r.event_id = e.id WHERE r.id = " + id;
 		ResultSet rs = null;
 		try {
@@ -320,9 +320,8 @@ public class BazaDanych {
 	 * @param id - the event
 	 * @return
 	 */
-	public ResultSet pobierzRezerwacjeWydarzenia(int id) {
+	public ResultSet downloadReservationsEvents(int id) {
 		String query = "SELECT u.email, u.id as userId, r.tickets, r.id as reservationId FROM reservations r INNER JOIN users u ON r.user_id = u.id WHERE r.event_id = " + id;
-
 		ResultSet rs = null;
 		try {
 			rs = statement.executeQuery(query);
@@ -340,9 +339,8 @@ public class BazaDanych {
 	 * @param id - booking
 	 * @return
 	 */
-	public boolean anulujRezerwacje(int id) {
+	public boolean cancelReservations(int id) {
 		String query = "DELETE FROM reservations WHERE id = " + id;
-
 		try {
 			ResultSet rs = statement.executeQuery("SELECT tickets, event_id, user_id FROM reservations WHERE id =" + id);
 			rs.next();
@@ -359,7 +357,7 @@ public class BazaDanych {
 
 			statement.executeUpdate("UPDATE events SET tickets = " + (event_tickets + tickets) + " WHERE id=" + event_id);
 			statement.executeUpdate(query);
-			wyslijWiadomosc(recipient_id, sender_id, event_id, "Anulowanie rezerwacji", "Twoja rezerwacja została anulowana. Aby uzyskać więcej szczegółów skontaktuj się z organizatorem.");
+			sendMessage(recipient_id, sender_id, event_id, "Anulowanie rezerwacji", "Twoja rezerwacja została anulowana. Aby uzyskać więcej szczegółów skontaktuj się z organizatorem.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -375,7 +373,7 @@ public class BazaDanych {
 	 * @param tickets - number of tickets to be canceled
 	 * @return true/false
 	 */
-	public boolean anulujRezerwacje(int id, int tickets) {
+	public boolean cancelReservations(int id, int tickets) {
 		String query = "SELECT tickets, event_id FROM reservations WHERE id = " + id;
 		try {
 			ResultSet rs = statement.executeQuery(query);
@@ -405,9 +403,8 @@ public class BazaDanych {
 	 * @param id - the event
 	 * @return
 	 */
-	public boolean anulujWszystkieRezerwacje(int id) {
+	public boolean cancelAllReservations(int id) {
 		String query = "DELETE FROM reservations WHERE event_id = " + id;
-
 		try {
 			ResultSet rs = statement.executeQuery("SELECT tickets, event_id, user_id FROM reservations WHERE event_id =" + id);
 
@@ -431,7 +428,7 @@ public class BazaDanych {
 				sender_id = rs.getInt("user_id");
 
 				statement.executeUpdate("UPDATE events SET tickets = " + (event_tickets + tickets.get(i)) + " WHERE id=" + event_id.get(i));
-				wyslijWiadomosc(recipient_id.get(i), sender_id, event_id.get(i), "Anulowanie rezerwacji", "Twoja rezerwacja została anulowana. Aby uzyskać więcej szczegółów skontaktuj się z organizatorem.");
+				sendMessage(recipient_id.get(i), sender_id, event_id.get(i), "Anulowanie rezerwacji", "Twoja rezerwacja została anulowana. Aby uzyskać więcej szczegółów skontaktuj się z organizatorem.");
 				rs.close();
 			}
 
@@ -450,7 +447,7 @@ public class BazaDanych {
 	 * @param id - the user (customer)
 	 * @return
 	 */
-	public ResultSet pobierzWiadomosci(int id) {
+	public ResultSet getNews(int id) {
 		String query = "SELECT u.email, u.id as userId, e.id as eventId, e.name, m.title, m.id as messageId, m.readed FROM messages m INNER JOIN users u ON m.sender_id = u.id INNER JOIN events e ON m.event_id = e.id WHERE m.recipient_id = " + id + " ORDER BY m.id, m.readed DESC";
 		ResultSet rs = null;
 		try {
@@ -468,7 +465,7 @@ public class BazaDanych {
 	 * @param id - News
 	 * @return
 	 */
-	public ResultSet pobierzWiadomosc(int id) {
+	public ResultSet getMessage(int id) {
 		String query = "SELECT u.email, u.id as userId, e.id as eventId, e.name, m.title, m.id as messageId, m.readed, m.message FROM messages m INNER JOIN users u ON m.sender_id = u.id INNER JOIN events e ON m.event_id = e.id WHERE m.id = " + id;
 		ResultSet rs = null;
 		try {
@@ -487,7 +484,7 @@ public class BazaDanych {
 	 * @param id - message identifier, which will be the answer
 	 * @return
 	 */
-	public ResultSet odpowiedz(int id) {
+	public ResultSet reply(int id) {
 		String query = "SELECT m.sender_id as user_id, m.title, e.name, e.id FROM messages m INNER JOIN users u ON m.sender_id = u.id INNER JOIN events e ON m.event_id = e.id WHERE m.id = " + id;
 		ResultSet rs = null;
 		try {
@@ -505,7 +502,7 @@ public class BazaDanych {
 	 * @param id - User
 	 * @return
 	 */
-	public int policzNoweWiadomosci(int id) {
+	public int countNewNews(int id) {
 		String query = "SELECT count(*) FROM messages WHERE recipient_id = " + id + " and readed = 0";
 		ResultSet rs = null;
 		int count = 0;
@@ -526,7 +523,7 @@ public class BazaDanych {
 	 * @param id - User
 	 * @return
 	 */
-	public String pobierzEmailUzytkownika(int id) {
+	public String getEmail(int id) {
 		String query = "SELECT email FROM users WHERE id = " + id;
 		ResultSet rs = null;
 		String email = "";
@@ -552,7 +549,7 @@ public class BazaDanych {
 	 * @param message      - the message
 	 * @return true/false
 	 */
-	public boolean wyslijWiadomosc(int recipient_id, int sender_id, int event_id, String title, String message) {
+	public boolean sendMessage(int recipient_id, int sender_id, int event_id, String title, String message) {
 		if (recipient_id == 0) {
 			String query = "SELECT user_id FROM reservations WHERE event_id=" + event_id;
 			ArrayList<Integer> users = new ArrayList<Integer>();
@@ -590,7 +587,7 @@ public class BazaDanych {
 	 * @param id
 	 * @return
 	 */
-	public boolean usunWiadomosc(int id) {
+	public boolean removeMessage(int id) {
 		String query = "DELETE FROM messages WHERE id = " + id;
 		try {
 			statement.executeUpdate(query);

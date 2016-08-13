@@ -22,9 +22,9 @@ po anulowaniu rezerwacji od razu nastepuje przekierowanie na strone z rezerwacja
 				if(request.getParameter("id")!=null){
 					
 					BazaDanych bd = new BazaDanych();
-					bd.polacz();
+					bd.connect();
 					
-					ResultSet rs = bd.pobierzRezerwacje(Integer.parseInt(request.getParameter("id").toString()));
+					ResultSet rs = bd.downloadReservations(Integer.parseInt(request.getParameter("id").toString()));
 					
 					String name_db = "";
 					String city_db = "";
@@ -48,7 +48,7 @@ po anulowaniu rezerwacji od razu nastepuje przekierowanie na strone z rezerwacja
 						int tickets = Integer.parseInt(request.getParameter("tickets"));
 						
 						if(Integer.parseInt(tickets_db)==tickets){
-							if(bd.anulujRezerwacje(Integer.parseInt(request.getParameter("id").toString()))){
+							if(bd.cancelReservations(Integer.parseInt(request.getParameter("id").toString()))){
 								response.sendRedirect("reservations.jsp");
 							}else{
 								%>
@@ -56,7 +56,7 @@ po anulowaniu rezerwacji od razu nastepuje przekierowanie na strone z rezerwacja
 								<%
 							}	
 						}else{
-							if(bd.anulujRezerwacje(Integer.parseInt(request.getParameter("id").toString()), tickets)){
+							if(bd.cancelReservations(Integer.parseInt(request.getParameter("id").toString()), tickets)){
 								response.sendRedirect("reservations.jsp");
 							}else{
 								%>
@@ -69,7 +69,7 @@ po anulowaniu rezerwacji od razu nastepuje przekierowanie na strone z rezerwacja
 						
 					}
 					
-					bd.rozlacz();
+					bd.disconnect();
 					
 					%>
 					
