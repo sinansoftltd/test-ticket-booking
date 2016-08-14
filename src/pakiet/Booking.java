@@ -77,7 +77,7 @@ public class Booking {
 		try {
 			rs = connectionHandler.executeQuery(null, query);
 			rs.next();
-			int result = rs.getInt(0);
+			int result = rs.getInt("result");
 			if (result > 0) {
 				return false;
 			} else {

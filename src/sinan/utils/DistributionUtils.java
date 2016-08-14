@@ -34,7 +34,8 @@ public class DistributionUtils {
 		String distroKeyMin = null;
 		for (Database database : connectionHandler.getConnectedDatabases()) {
 			ResultSet resultSet = connectionHandler.executeQuery(database.getDistributionKey(), "SELECT COUNT(*) AS countUsers FROM users");
-			int count = resultSet.getInt(0);
+			resultSet.next();
+			int count = resultSet.getInt("countUsers");
 			if (count < min) {
 				min = count;
 				distroKeyMin = database.getDistributionKey();
