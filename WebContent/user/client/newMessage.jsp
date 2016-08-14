@@ -58,7 +58,7 @@
 						ResultSet rs = bd.getEvent(request.getParameter("eventId"));
 						rs.next();
 						
-						recipient_id = Integer.parseInt(request.getParameter("id"));
+						recipient_id = request.getParameter("id");
 						event_name = rs.getString("name");
 						event_id = rs.getString("id");
 						recipient_email = bd.getEmail(recipient_id);

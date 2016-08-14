@@ -18,7 +18,10 @@ public class DistributionUtils {
 	 * @return distribution id from id
 	 */
 	public static String getDistroKey(String id) {
-		return id.substring(0, id.indexOf(":"));
+		if (id != null && id.contains(":")) {
+			return id.substring(0, id.indexOf(":"));
+		}
+		return null;
 	}
 
 	/**

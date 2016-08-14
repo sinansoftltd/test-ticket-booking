@@ -1,6 +1,7 @@
 package sinan.database;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 /**
  * To merge java.sql.ResultSet results.

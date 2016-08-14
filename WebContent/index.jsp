@@ -55,7 +55,7 @@
 
 						Date today = new Date();
 
-						while (rs.next()) {
+						while (rs != null && rs.next()) {
 
 							Date event = rs.getDate("eventDate");
 
@@ -69,19 +69,19 @@
 							out.print("<td>" + rs.getString("price") + " zł</td>");
 							out.print("<td>");
 							if(canBook){
-								out.print("<a href=\"user/client/newMessage.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-info\">Message</a> ");
+								out.print("<a href=\"user/client/newMessage.jsp?id="+rs.getString("id")+"\" class=\"btn btn-info\">Message</a> ");
 							}else{
-								out.print("<a href=\"user/client/newMessage.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-info\" disabled>Message</a> ");
+								out.print("<a href=\"user/client/newMessage.jsp?id="+rs.getString("id")+"\" class=\"btn btn-info\" disabled>Message</a> ");
 							}
 							if(Integer.parseInt(rs.getString("tickets")) == 0){
-								out.print("<a href=\"book.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-primary\" disabled>No tickets</a>");
+								out.print("<a href=\"book.jsp?id="+rs.getString("id")+"\" class=\"btn btn-primary\" disabled>No tickets</a>");
 							}else if(today.after(event)){
-								out.print("<a href=\"book.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-primary\" disabled>Book</a>");
+								out.print("<a href=\"book.jsp?id="+rs.getString("id")+"\" class=\"btn btn-primary\" disabled>Book</a>");
 							}else{
 								if(canBook){
-									out.print("<a href=\"book.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-primary\">Book</a>");
+									out.print("<a href=\"book.jsp?id="+rs.getString("id")+"\" class=\"btn btn-primary\">Book</a>");
 								}else{
-									out.print("<a href=\"book.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-primary\" disabled>Book</a>");
+									out.print("<a href=\"book.jsp?id="+rs.getString("id")+"\" class=\"btn btn-primary\" disabled>Book</a>");
 								}
 							}
 							out.print("</td>");
