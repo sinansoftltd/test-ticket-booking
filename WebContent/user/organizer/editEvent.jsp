@@ -1,5 +1,5 @@
 <%@page import="java.text.SimpleDateFormat"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="UTF-8" import="pakiet.*, java.security.MessageDigest, java.util.Date, java.sql.Timestamp, java.sql.ResultSet"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"	pageEncoding="UTF-8" import="pakiet.*, java.security.MessageDigest, java.util.Date, java.sql.Timestamp, sinan.database.ResultSet"%>
 
 <%@ include file="../../partials/organizerAuth.jsp"%>
 

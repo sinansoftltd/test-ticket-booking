@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="UTF-8" import="pakiet.*, java.sql.ResultSet, java.util.Date"%>
+	pageEncoding="UTF-8" import="pakiet.*, sinan.database.ResultSet, java.util.Date"%>
 
 <%@ include file="partials/header.jsp"%>
 <%@ include file="partials/menu.jsp"%>
