@@ -1,6 +1,7 @@
 package sinan.database;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 /**
  * To merge java.sql.ResultSet results.
@@ -40,4 +41,9 @@ public class ResultSet {
 	public String getString(int pos) throws SQLException {
 		return current.getString(pos);
 	}
+
+	public Date getDate(String columnLabel) throws SQLException {
+		return current.getDate(columnLabel);
+	}
+
 }
