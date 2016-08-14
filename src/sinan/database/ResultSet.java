@@ -3,21 +3,22 @@ package sinan.database;
 import java.sql.SQLException;
 
 /**
- * Created by Sinan on 8/14/16.
+ * To merge java.sql.ResultSet results.
  */
-public class ResultSets {
+public class ResultSet {
 	private java.util.List<java.sql.ResultSet> resultSets;
 
 	private java.sql.ResultSet current;
 
-	public ResultSets(java.util.List<java.sql.ResultSet> resultSets) {
+	public ResultSet(java.util.List<java.sql.ResultSet> resultSets) {
 		this.resultSets = new java.util.ArrayList<>(resultSets);
 		current = resultSets.remove(0);
 	}
-	public boolean next() throws SQLException{
+
+	public boolean next() throws SQLException {
 		if (current.next()) {
 			return true;
-		}else if (!resultSets.isEmpty()) {
+		} else if (!resultSets.isEmpty()) {
 			current = resultSets.remove(0);
 			return next();
 		}
@@ -28,7 +29,7 @@ public class ResultSets {
 		return current.getInt(pos);
 	}
 
-	public String getString(String field) throws SQLException{
+	public String getString(String field) throws SQLException {
 		return current.getString(field);
 	}
 }

@@ -1,5 +1,8 @@
 package pakiet;
 
+import sinan.database.ConnectionHandler;
+import sinan.database.ConnectionHandlerException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -16,49 +19,31 @@ import java.util.ArrayList;
  *
  */
 public class BazaDanych {
-	
-	/**
-	 * Variables which are set data to the database connection.
-	 */
-	private String server = "localhost";
-	private String dbName = "sinan_RezerwacjeBiletow";
-	private String user = "root";
-	private String password = "";
-	
-	private Connection connection;
-	private Statement statement;
-	
+
+	private ConnectionHandler connectionHandler = new ConnectionHandler();
+
 	/**
 	 * The method used to connect to the database. Before performing any operation on the basis of
 	 * You have to connect to it using this method and after the operation to end the connection
 	 * Using the method disconnects.
 	 */
-	public void connect(){
-		String driver = "com.mysql.jdbc.Driver";
-		String url = "jdbc:mysql://" + server + ":3306/" + dbName + "?useUnicode=true&characterEncoding=utf8";
-		
+	public void connect() {
 		try {
-			Class.forName(driver).newInstance(); 
-			
-			this.connection = DriverManager.getConnection(url, user, password); 
-			this.statement = connection.createStatement(); 
-			
-			//statement.execute("SET NAMES 'utf-8'");
-		} catch (Exception e) {
-			e.printStackTrace();
+			connectionHandler.connect();
+		} catch (ConnectionHandlerException e) {
+			e.printStackTrace(); //TODO use logger
 		}
 	}
-	
+
 	/**
 	 * The method terminates the connection to the database.
 	 */
 	public void disconnect(){
 		try {
-			statement.close();
-			connection.close();
-		} catch (SQLException e) {
+			connectionHandler.disconnect();
+		} catch (ConnectionHandlerException e) {
 			e.printStackTrace();
-		}		
+		}
 	}
 	
 	/**
