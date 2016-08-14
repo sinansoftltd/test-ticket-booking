@@ -127,7 +127,7 @@ public class Booking {
 		String query = "INSERT INTO events(id, user_id, name,city,place,eventDate,price,tickets) VALUES('" + generatedId + "', '" + userId + "','" + name + "','" + city + "','" + place + "','" + eventDate + "'," + price + "," + tickets + ")";
 		try {
 			connectionHandler.executeUpdate(distroKey, query);
-		} catch (ConnectionHandlerException | SQLException e) {
+		} catch (ConnectionHandlerException e) {
 			LOGGER.log(Level.SEVERE, e.getMessage(), e); 
 			return false;
 		}
@@ -592,12 +592,13 @@ public class Booking {
 	 * @param id
 	 * @return
 	 */
-	public boolean removeMessage(int id) {
-		String query = "DELETE FROM messages WHERE id = " + id;
+	public boolean removeMessage(String id) {
+		String distroKey = DistributionUtils.getDistroKey(id);
+		String query = "DELETE FROM messages WHERE id = '" + id + "'";
 		try {
-			statement.executeUpdate(query);
-		} catch (SQLException e) {
-			e.printStackTrace();
+			connectionHandler.executeUpdate(distroKey, query);
+		} catch (ConnectionHandlerException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			return false;
 		}
 

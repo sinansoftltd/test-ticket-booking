@@ -30,7 +30,7 @@ jest wyswietlana strona z lista wiadomosci.
 					Booking bd = new Booking();
 					bd.connect();
 
-					if (bd.removeMessage(Integer.parseInt(request.getParameter("id").toString()))) {
+					if (bd.removeMessage(request.getParameter("id").toString())) {
 						response.sendRedirect("messages.jsp");
 					} else {
 			%>
