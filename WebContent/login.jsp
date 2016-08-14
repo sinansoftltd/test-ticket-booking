@@ -27,7 +27,7 @@ session.removeAttribute("userId");
 				
 				if(request.getParameter("login")!=null){
 					 
-					BazaDanych bd = new BazaDanych();
+					Booking bd = new Booking();
 					bd.connect();
 					
 					String email = request.getParameter("email");

@@ -48,7 +48,7 @@
 				</thead>
 				<tbody>
 					<%
-						BazaDanych bd = new BazaDanych();
+						Booking bd = new Booking();
 						bd.connect();
 
 						ResultSet rs = bd.getEvents();

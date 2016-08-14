@@ -41,7 +41,7 @@
 	/*
 	Strona do wyświetlania wydarzeń zalogowanego organizatora. 
 	*/
-	BazaDanych bd = new BazaDanych();
+	Booking bd = new Booking();
 	bd.connect();
 	
 	if(request.getParameter("deleteId")!=null){

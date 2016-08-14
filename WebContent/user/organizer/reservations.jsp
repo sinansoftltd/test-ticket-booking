@@ -40,7 +40,7 @@
 /*
 Strona do wyświetlania rezerwacji wybranego wydarzenia
 */
-BazaDanych bd = new BazaDanych();
+Booking bd = new Booking();
 bd.connect();
 
 ResultSet rs = bd.getEvent(Integer.parseInt(request.getParameter("id")));

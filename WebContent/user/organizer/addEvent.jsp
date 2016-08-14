@@ -24,7 +24,7 @@
 				
 				if(request.getParameter("dodaj")!=null){
 					 
-					BazaDanych bd = new BazaDanych();
+					Booking bd = new Booking();
 					bd.connect();
 					
 					String name = request.getParameter("name");

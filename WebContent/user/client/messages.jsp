@@ -48,7 +48,7 @@
 					Jest to strona, która wyświetla wiadomości użytkownika
 					*/
 					
-						BazaDanych bd = new BazaDanych();
+						Booking bd = new Booking();
 						bd.connect();
 
 						ResultSet rs = bd.getNews(Integer.parseInt(session.getAttribute("userId").toString()));

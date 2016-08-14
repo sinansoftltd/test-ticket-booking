@@ -26,7 +26,7 @@
 Jest to strona, ktora wyswietla pojedyncza wiadomosc
 */
 
-BazaDanych bd = new BazaDanych();
+Booking bd = new Booking();
 bd.connect();
 
 ResultSet rs = bd.getMessage(Integer.parseInt(request.getParameter("id")));

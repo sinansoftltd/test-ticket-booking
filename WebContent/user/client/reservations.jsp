@@ -53,7 +53,7 @@
 					Srtona wyświetlająca rezerwacje użytkownika
 					*/
 					
-					BazaDanych bd = new BazaDanych();
+					Booking bd = new Booking();
 					bd.connect();
 					
 					ResultSet rs = bd.getReservationList(Integer.parseInt(session.getAttribute("userId").toString()));

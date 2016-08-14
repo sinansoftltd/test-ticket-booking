@@ -20,7 +20,7 @@
 				
 				if(request.getParameter("register")!=null){
 					 
-					BazaDanych bd = new BazaDanych();
+					Booking bd = new Booking();
 					bd.connect();
 					
 					String email = request.getParameter("email");

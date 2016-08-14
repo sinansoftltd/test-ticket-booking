@@ -21,7 +21,7 @@ po anulowaniu rezerwacji od razu nastepuje przekierowanie na strone z rezerwacja
 				
 				if(request.getParameter("id")!=null){
 					
-					BazaDanych bd = new BazaDanych();
+					Booking bd = new Booking();
 					bd.connect();
 					
 					ResultSet rs = bd.getReservations(Integer.parseInt(request.getParameter("id").toString()));

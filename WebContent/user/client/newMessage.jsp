@@ -21,7 +21,7 @@
 				
 				request.setCharacterEncoding("utf-8");
 				
-				BazaDanych bd = new BazaDanych();
+				Booking bd = new Booking();
 				bd.connect();
 				
 				int recipient_id = 0;

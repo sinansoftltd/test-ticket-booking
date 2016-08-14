@@ -3,23 +3,19 @@ package pakiet;
 import sinan.database.ConnectionHandler;
 import sinan.database.ConnectionHandlerException;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
- * Class used to operations on the database. All operations are based on programmed precisely in this class.
- * They are made in the application by calling the appropriate method in this class.
- *
- * @author root
- *
+ * Class to execute basic functions about our booking system
  */
-public class BazaDanych {
+public class Booking {
 
+	private static final Logger LOGGER = Logger.getLogger(Booking.class.getName());
 	private ConnectionHandler connectionHandler = new ConnectionHandler();
 
 	/**
@@ -31,7 +27,7 @@ public class BazaDanych {
 		try {
 			connectionHandler.connect();
 		} catch (ConnectionHandlerException e) {
-			e.printStackTrace(); //TODO use logger
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 

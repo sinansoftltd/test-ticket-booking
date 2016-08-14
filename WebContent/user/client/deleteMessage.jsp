@@ -27,7 +27,7 @@ jest wyswietlana strona z lista wiadomosci.
 
 				if (request.getParameter("id") != null) {
 
-					BazaDanych bd = new BazaDanych();
+					Booking bd = new Booking();
 					bd.connect();
 
 					if (bd.removeMessage(Integer.parseInt(request.getParameter("id").toString()))) {

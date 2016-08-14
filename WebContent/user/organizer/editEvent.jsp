@@ -24,7 +24,7 @@
 				
 				if(request.getParameter("id")!=null){
 					
-					BazaDanych bd = new BazaDanych();
+					Booking bd = new Booking();
 					bd.connect();
 					
 					ResultSet rs = bd.getEvent(Integer.parseInt(request.getParameter("id").toString()));
