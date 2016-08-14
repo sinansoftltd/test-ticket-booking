@@ -17,32 +17,10 @@ public class ConnectionHandler {
 			new Database("02", "localhost", "sinan_RezerwacjeBiletow", "root", "", "com.mysql.jdbc.Driver", "jdbc:mysql://{server}:3306/{database}?useUnicode=true&characterEncoding=utf8"));
 
 	/**
-	 * Finds a database by its distribution key
-	 * @param distroKey
-	 * @return
+	 * @return list of connected databases
 	 */
-	private Database findDatabase(String distroKey) {
-		if (distroKey != null) {
-			for (Database db : databases) {
-				if (db.getDistributionKey().equals(distroKey)) {
-					return db;
-				}
-			}
-		}
-
-		return null;
-	}
-
-	/**
-	 * If distroKey = null, then we need to use all databases
-	 */
-	private List<Database> findDatabases(String distroKey) {
-		Database database = findDatabase(distroKey);
-		if (database != null) {
-			return Arrays.asList(database);
-		}
-
-		return databases;
+	public List<Database> getConnectedDatabases() {
+		return connectedDatabases;
 	}
 
 	/**
@@ -133,6 +111,35 @@ public class ConnectionHandler {
 	protected void finalize() throws Throwable {
 		disconnect();
 		super.finalize();
+	}
+
+	/**
+	 * Finds a database by its distribution key
+	 * @param distroKey
+	 * @return
+	 */
+	private Database findDatabase(String distroKey) {
+		if (distroKey != null) {
+			for (Database db : databases) {
+				if (db.getDistributionKey().equals(distroKey)) {
+					return db;
+				}
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * If distroKey = null, then we need to use all databases
+	 */
+	private List<Database> findDatabases(String distroKey) {
+		Database database = findDatabase(distroKey);
+		if (database != null) {
+			return Arrays.asList(database);
+		}
+
+		return databases;
 	}
 
 	/**
