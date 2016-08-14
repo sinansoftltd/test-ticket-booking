@@ -1,6 +1,7 @@
 package sinan.database;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -44,6 +45,10 @@ public class ResultSet {
 
 	public Date getDate(String columnLabel) throws SQLException {
 		return current.getDate(columnLabel);
+	}
+
+	public Timestamp getTimestamp(String columnLabel) throws SQLException {
+		return current.getTimestamp(columnLabel);
 	}
 
 }
