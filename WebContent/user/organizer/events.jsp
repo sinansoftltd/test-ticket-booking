@@ -45,7 +45,7 @@
 	bd.connect();
 	
 	if(request.getParameter("deleteId")!=null){
-		if(bd.removeEvent(Integer.parseInt(request.getParameter("deleteId").toString()))){
+		if(bd.removeEvent(request.getParameter("deleteId").toString())){
 			%>
 			
 					<div class="alert alert-success alert-dismissible" role="alert" style="margin-top: 40px;">
@@ -85,7 +85,7 @@
 				<tbody>
 					<%				
 					
-					ResultSet rs = bd.getEvents(Integer.parseInt(session.getAttribute("userId").toString()));
+					ResultSet rs = bd.getEvents(session.getAttribute("userId").toString());
 					
 					while(rs.next()){
 						out.print("<tr>");

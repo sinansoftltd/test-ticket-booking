@@ -4,7 +4,7 @@ import sinan.database.ConnectionHandler;
 import sinan.database.ConnectionHandlerException;
 import sinan.utils.DistributionUtils;
 
-import java.sql.ResultSet;
+import sinan.database.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -64,26 +64,27 @@ public class Booking {
 
 		return true;
 	}
-	
+
 	/**
 	 * The method to check for login. If the given username is busy function returns false.
-	 * 
+	 *
 	 * @param email - Email to check
 	 * @return true/false
 	 */
-	public boolean checkLogin(String email){
+	public boolean checkLogin(String email) {
 		String query = "SELECT count(*) as result FROM users WHERE email = '" + email + "'";
 		ResultSet rs;
 		try {
-			rs = statement.executeQuery(query);
+			rs = connectionHandler.executeQuery(null, query);
 			rs.next();
-			int result = rs.getInt("result");
+			int result = rs.getInt(0);
 			if (result > 0) {
 				return false;
 			} else {
 				return true;
 			}
-		} catch (SQLException e) {
+		} catch (ConnectionHandlerException | SQLException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			return false;
 		}
 	}
@@ -100,9 +101,9 @@ public class Booking {
 		String query = "SELECT * FROM users WHERE email = '" + email + "' and password = '" + password + "'";
 		ResultSet rs = null;
 		try {
-			rs = statement.executeQuery(query);
-		} catch (SQLException e) {
-
+			rs = connectionHandler.executeQuery(null, query);
+		} catch (ConnectionHandlerException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		}
 
 		return rs;
@@ -120,12 +121,14 @@ public class Booking {
 	 * @param price     - price ticket
 	 * @return true/false
 	 */
-	public boolean addEvent(int userId, String name, String city, String place, Timestamp eventDate, int tickets, double price) {
-		String query = "INSERT INTO events(user_id, name,city,place,eventDate,price,tickets) VALUES(" + userId + ",'" + name + "','" + city + "','" + place + "','" + eventDate + "'," + price + "," + tickets + ")";
+	public boolean addEvent(String userId, String name, String city, String place, Timestamp eventDate, int tickets, double price) {
+		String distroKey = DistributionUtils.getDistroKey(userId);
+		String generatedId = DistributionUtils.generateId(distroKey);
+		String query = "INSERT INTO events(id, user_id, name,city,place,eventDate,price,tickets) VALUES('" + generatedId + "', '" + userId + "','" + name + "','" + city + "','" + place + "','" + eventDate + "'," + price + "," + tickets + ")";
 		try {
-			statement.executeUpdate(query);
-		} catch (SQLException e) {
-			e.printStackTrace();
+			connectionHandler.executeUpdate(distroKey, query);
+		} catch (ConnectionHandlerException | SQLException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e); 
 			return false;
 		}
 
@@ -144,12 +147,13 @@ public class Booking {
 	 * @param price     - new price
 	 * @return true/false
 	 */
-	public boolean editEvent(int id, String name, String city, String place, Timestamp eventDate, int tickets, double price) {
-		String query = "UPDATE events SET name = '" + name + "',city = '" + city + "', place = '" + place + "', eventDate = '" + eventDate + "',tickets = " + tickets + ", price = " + price + " WHERE id = " + id;
+	public boolean editEvent(String id, String name, String city, String place, Timestamp eventDate, int tickets, double price) {
+		String distroKey = DistributionUtils.getDistroKey(id);
+		String query = "UPDATE events SET name = '" + name + "',city = '" + city + "', place = '" + place + "', eventDate = '" + eventDate + "',tickets = " + tickets + ", price = " + price + " WHERE id = '" + id + "'";
 		try {
-			statement.executeUpdate(query);
-		} catch (SQLException e) {
-			e.printStackTrace();
+			connectionHandler.executeUpdate(distroKey, query);
+		} catch (ConnectionHandlerException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			return false;
 		}
 
@@ -162,14 +166,15 @@ public class Booking {
 	 * @param id - The logged in user
 	 * @return rs
 	 */
-	public ResultSet getEvents(int id) {
+	public ResultSet getEvents(String id) {
+		String distroKey = DistributionUtils.getDistroKey(id);
 		String query = "SELECT * FROM events WHERE user_id = '" + id + "'";
 
 		ResultSet rs = null;
 		try {
-			rs = statement.executeQuery(query);
-		} catch (SQLException e) {
-
+			rs = connectionHandler.executeQuery(distroKey, query);
+		} catch (ConnectionHandlerException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		}
 
 		return rs;
@@ -185,9 +190,9 @@ public class Booking {
 
 		ResultSet rs = null;
 		try {
-			rs = statement.executeQuery(query);
-		} catch (SQLException e) {
-
+			rs = connectionHandler.executeQuery(null, query);
+		} catch (ConnectionHandlerException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		}
 
 		return rs;
@@ -199,13 +204,14 @@ public class Booking {
 	 * @param id - the event
 	 * @return
 	 */
-	public ResultSet getEvent(int id) {
-		String query = "SELECT * FROM events WHERE id = " + id;
+	public ResultSet getEvent(String id) {
+		String distroKey = DistributionUtils.getDistroKey(id);
+		String query = "SELECT * FROM events WHERE id = '" + id + "'";
 		ResultSet rs = null;
 		try {
-			rs = statement.executeQuery(query);
-		} catch (SQLException e) {
-
+			rs = connectionHandler.executeQuery(distroKey, query);
+		} catch (ConnectionHandlerException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		}
 
 		return rs;
@@ -217,12 +223,13 @@ public class Booking {
 	 * @param id - the event
 	 * @return
 	 */
-	public boolean removeEvent(int id) {
-		String query = "DELETE FROM events WHERE id = " + id;
+	public boolean removeEvent(String id) {
+		String distroKey = DistributionUtils.getDistroKey(id);
+		String query = "DELETE FROM events WHERE id = '" + id + "'";
 		try {
-			statement.executeUpdate(query);
-		} catch (SQLException e) {
-			e.printStackTrace();
+			connectionHandler.executeUpdate(distroKey, query);
+		} catch (ConnectionHandlerException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			return false;
 		}
 

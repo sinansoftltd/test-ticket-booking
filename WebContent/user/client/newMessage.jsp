@@ -34,7 +34,7 @@
 				if(request.getParameter("eventId")==null){
 				
 					if(request.getParameter("messageId") == null){
-						ResultSet rs = bd.getEvent(Integer.parseInt(request.getParameter("id")));
+						ResultSet rs = bd.getEvent(request.getParameter("id"));
 						rs.next();
 						
 						recipient_id = rs.getInt("user_id");
@@ -55,7 +55,7 @@
 				}else{					
 					
 					if(request.getParameter("id")!=null){
-						ResultSet rs = bd.getEvent(Integer.parseInt(request.getParameter("eventId")));
+						ResultSet rs = bd.getEvent(request.getParameter("eventId"));
 						rs.next();
 						
 						recipient_id = Integer.parseInt(request.getParameter("id"));
@@ -63,7 +63,7 @@
 						event_id = rs.getInt("id");
 						recipient_email = bd.getEmail(recipient_id);
 					}else{
-						ResultSet rs = bd.getEvent(Integer.parseInt(request.getParameter("eventId")));
+						ResultSet rs = bd.getEvent(request.getParameter("eventId"));
 						rs.next();
 						
 						event_name = rs.getString("name");

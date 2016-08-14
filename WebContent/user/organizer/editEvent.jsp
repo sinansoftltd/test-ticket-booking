@@ -27,7 +27,7 @@
 					Booking bd = new Booking();
 					bd.connect();
 					
-					ResultSet rs = bd.getEvent(Integer.parseInt(request.getParameter("id").toString()));
+					ResultSet rs = bd.getEvent(request.getParameter("id").toString());
 					
 					String name_db = "";
 					String city_db = "";
@@ -62,7 +62,7 @@
 						Date data = new SimpleDateFormat("yyyy-MM-dd HH:mm").parse(data_string);
 						Timestamp eventDate = new Timestamp(data.getTime());
 						
-						if(bd.editEvent(Integer.parseInt(request.getParameter("id").toString()), name, city, place, eventDate, tickets, price)){
+						if(bd.editEvent(request.getParameter("id").toString(), name, city, place, eventDate, tickets, price)){
 							response.sendRedirect("events.jsp");
 						}else{
 							%>

@@ -23,7 +23,7 @@
 					Booking bd = new Booking();
 					bd.connect();
 					
-					ResultSet rs = bd.getEvent(Integer.parseInt(request.getParameter("id").toString()));
+					ResultSet rs = bd.getEvent(request.getParameter("id").toString());
 					
 					String name_db = "";
 					String city_db = "";

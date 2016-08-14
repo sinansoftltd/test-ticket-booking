@@ -43,7 +43,7 @@ Strona do wyświetlania rezerwacji wybranego wydarzenia
 Booking bd = new Booking();
 bd.connect();
 
-ResultSet rs = bd.getEvent(Integer.parseInt(request.getParameter("id")));
+ResultSet rs = bd.getEvent(request.getParameter("id"));
 rs.next();
 
 String eventName = rs.getString("name");
