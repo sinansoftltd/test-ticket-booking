@@ -2,6 +2,7 @@ package pakiet;
 
 import sinan.database.ConnectionHandler;
 import sinan.database.ConnectionHandlerException;
+import sinan.utils.DistributionUtils;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,16 +47,18 @@ public class Booking {
 	 * The method records in the database of the new user.
 	 *
 	 * @param email    - Email User
-	 * @param password - User użytkownika
+	 * @param password - User password
 	 * @param type     - type of user
 	 * @return true/false
 	 */
 	public boolean register(String email, String password, String type) {
-		String query = "INSERT INTO users(email,password,type) VALUES('" + email + "','" + password + "','" + type + "')";
 		try {
-			statement.executeUpdate(query);
-		} catch (SQLException e) {
-			e.printStackTrace();
+			String distroKey = DistributionUtils.generateDistroKey(connectionHandler);
+			String generatedId = DistributionUtils.generateId(distroKey);
+			String query = "INSERT INTO users(id, email, password, type) VALUES('" + generatedId + "', '" + email + "','" + password + "','" + type + "')";
+			connectionHandler.executeUpdate(distroKey, query);
+		} catch (SQLException | ConnectionHandlerException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			return false;
 		}
 

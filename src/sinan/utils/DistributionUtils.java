@@ -48,4 +48,13 @@ public class DistributionUtils {
 	public static String generateId(String distroKey) {
 		return distroKey + ":" + UUID.randomUUID();
 	}
+
+	/**
+	 * Generates random Id combined with distroKey to add new records with it.
+	 * @return random generated id
+	 */
+	public static String generateId(ConnectionHandler connectionHandler) throws ConnectionHandlerException, SQLException {
+		String distroKey = generateDistroKey(connectionHandler);
+		return generateId(distroKey);
+	}
 }
