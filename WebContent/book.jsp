@@ -47,7 +47,7 @@
 						int tickets = Integer.parseInt(request.getParameter("tickets"));
 						
 						
-						if(bd.bookTickets(request.getParameter("id").toString(), session.getAttribute("userId").toString(), tickets)){
+						if(bd.bookTickets(request.getParameter("id"), session.getAttribute("userId") != null ? session.getAttribute("userId").toString() : ""  , tickets)){
 							response.sendRedirect("user/client/reservations.jsp");
 						}else{
 							%>

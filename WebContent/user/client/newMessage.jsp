@@ -35,21 +35,23 @@
 				
 					if(request.getParameter("messageId") == null){
 						ResultSet rs = bd.getEvent(request.getParameter("id"));
-						rs.next();
-						
-						recipient_id = rs.getString("user_id");
-						event_name = rs.getString("name");
-						event_id = rs.getString("id");
-						recipient_email = bd.getEmail(recipient_id);
+
+						if(rs.next()) {
+							recipient_id = rs.getString("user_id");
+							event_name = rs.getString("name");
+							event_id = rs.getString("id");
+							recipient_email = bd.getEmail(recipient_id);
+						}
 					}else{
 						ResultSet rs = bd.reply(request.getParameter("messageId"));
-						rs.next();
-						
-						recipient_id = rs.getString("user_id");
-						event_name = rs.getString("name");
-						event_id = rs.getString("id");
-						re_title = "RE: "+rs.getString("title");
-						recipient_email = bd.getEmail(recipient_id);
+						if(rs.next()) {
+
+							recipient_id = rs.getString("user_id");
+							event_name = rs.getString("name");
+							event_id = rs.getString("id");
+							re_title = "RE: " + rs.getString("title");
+							recipient_email = bd.getEmail(recipient_id);
+						}
 					}
 					
 				}else{					
