@@ -247,7 +247,8 @@ public class Booking {
 	 */
 	public boolean bookTickets(String event, String user, int tickets) {
 		String distroKey = DistributionUtils.getDistroKey(user);
-		String query = "INSERT INTO reservations(event_id,user_id,tickets) VALUES('" + event + "','" + user + "'," + tickets + ")";
+		String generatedId = DistributionUtils.generateId(distroKey);
+		String query = "INSERT INTO reservations(id, event_id,user_id,tickets) VALUES('" + generatedId + "', '" + event + "','" + user + "'," + tickets + ")";
 		String query_get = "SELECT tickets FROM events WHERE id = '" + event + "'";
 
 		try {
@@ -255,7 +256,7 @@ public class Booking {
 			int tickets_update = 0;
 
 			rs.next();
-			tickets_update = rs.getInt(0) - tickets;
+			tickets_update = rs.getInt("tickets") - tickets;
 
 			if (tickets_update < 0) {
 				return false;

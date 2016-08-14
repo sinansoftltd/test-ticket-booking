@@ -51,7 +51,7 @@
 							response.sendRedirect("user/client/reservations.jsp");
 						}else{
 							%>
-								<div class="alert alert-warning" role="alert">Nie udało się dodać wydarzenia. Spróbuj ponownie później.</div>
+								<div class="alert alert-warning" role="alert">Failed to add the event. Please try again later..</div>
 							<%
 						}			
 						
