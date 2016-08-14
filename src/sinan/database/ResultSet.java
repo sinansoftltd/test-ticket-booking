@@ -35,6 +35,10 @@ public class ResultSet {
 		return current.getInt(pos);
 	}
 
+	public double getDouble(String pos) throws SQLException {
+		return current.getDouble(pos);
+	}
+
 	public String getString(String field) throws SQLException {
 		return current.getString(field);
 	}

@@ -120,3 +120,16 @@ INSERT INTO `reservations` (`id`, `event_id`, `user_id`, `tickets`) VALUES
 	('01:8e4a02dc-7d01-4d42-9642-6c473947aa34', '01:63ddd411-7aa9-4d94-bf70-32e745ab16f5', '01:15', 1);
 /*!40000 ALTER TABLE `reservations` ENABLE KEYS */;
 
+
+ALTER TABLE `messages` DROP FOREIGN KEY `FK_messages_users` ;
+ALTER TABLE `messages` DROP FOREIGN KEY `FK_messages_users_2` ;
+ALTER TABLE `reservations` DROP FOREIGN KEY `FK__events` ;
+ALTER TABLE `reservations` DROP FOREIGN KEY `FK__users` ;
+ALTER TABLE `reservations` DROP FOREIGN KEY `reservations_ibfk_1` ;
+ALTER TABLE `reservations` DROP FOREIGN KEY `reservations_ibfk_2` ;
+ALTER TABLE `events` DROP FOREIGN KEY `FK_events_users` ;
+ALTER TABLE `events` DROP FOREIGN KEY `events_ibfk_1` ;
+ALTER TABLE `messages` DROP FOREIGN KEY `FK_messages_events` ;
+ALTER TABLE `messages` DROP FOREIGN KEY `messages_ibfk_2` ;
+ALTER TABLE `messages` DROP FOREIGN KEY `messages_ibfk_3` ;
+ALTER TABLE `messages` DROP FOREIGN KEY `messages_ibfk_1` ;

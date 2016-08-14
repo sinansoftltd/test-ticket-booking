@@ -246,13 +246,13 @@ public class Booking {
 	 * @return true/false
 	 */
 	public boolean bookTickets(String event, String user, int tickets) {
-		String distroKey = DistributionUtils.getDistroKey(user);
-		String generatedId = DistributionUtils.generateId(distroKey);
+		String eventDistroKey = DistributionUtils.getDistroKey(event);
+		String generatedId = DistributionUtils.generateId(eventDistroKey);
 		String query = "INSERT INTO reservations(id, event_id,user_id,tickets) VALUES('" + generatedId + "', '" + event + "','" + user + "'," + tickets + ")";
 		String query_get = "SELECT tickets FROM events WHERE id = '" + event + "'";
 
 		try {
-			ResultSet rs = connectionHandler.executeQuery(distroKey, query_get);
+			ResultSet rs = connectionHandler.executeQuery(eventDistroKey, query_get);
 			int tickets_update = 0;
 
 			rs.next();
@@ -261,8 +261,8 @@ public class Booking {
 			if (tickets_update < 0) {
 				return false;
 			} else {
-				connectionHandler.executeUpdate(distroKey, query);
-				connectionHandler.executeUpdate(distroKey, "UPDATE events SET tickets = " + tickets_update + " WHERE id = '" + event + "'");
+				connectionHandler.executeUpdate(eventDistroKey, query);
+				connectionHandler.executeUpdate(eventDistroKey, "UPDATE events SET tickets = " + tickets_update + " WHERE id = '" + event + "'");
 				return true;
 			}
 		} catch (ConnectionHandlerException | SQLException e) {
@@ -278,11 +278,11 @@ public class Booking {
 	 * @return rs
 	 */
 	public ResultSet getReservationList(String id) {
-		String distroKey = DistributionUtils.getDistroKey(id);
+//		String distroKey = DistributionUtils.getDistroKey(id);
 		String query = "SELECT e.name, e.city, e.place, e.eventDate, e.price, r.tickets, r.id FROM reservations r INNER JOIN events e ON r.event_id = e.id WHERE r.user_id = '" + id + "'";
 		ResultSet rs = null;
 		try {
-			rs = connectionHandler.executeQuery(distroKey, query);
+			rs = connectionHandler.executeQuery(null, query);
 		} catch (ConnectionHandlerException e) {
 			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		}
@@ -554,13 +554,14 @@ public class Booking {
 	 * @return true/false
 	 */
 	public boolean sendMessage(String recipient_id, String sender_id, String event_id, String title, String message) {
-		String distroKey = DistributionUtils.getDistroKey(sender_id);
-		String generatedId = DistributionUtils.generateId(distroKey);
+		String eventDistroKey = DistributionUtils.getDistroKey(event_id);
+		String recipientDistroKey = DistributionUtils.getDistroKey(recipient_id);
+		String generatedId = DistributionUtils.generateId(eventDistroKey);
 		if (recipient_id == null) {
 			String query = "SELECT user_id FROM reservations WHERE event_id= '" + event_id + "'";
 			ArrayList<Integer> users = new ArrayList<Integer>();
 			try {
-				ResultSet rs = connectionHandler.executeQuery(distroKey, query);
+				ResultSet rs = connectionHandler.executeQuery(recipientDistroKey, query);
 				while (rs.next()) {
 					users.add(rs.getInt("user_id"));
 				}
@@ -568,7 +569,7 @@ public class Booking {
 
 				for (int i = 0; i < users.size(); i++) {
 					query = "INSERT INTO messages(id, recipient_id,sender_id,event_id,title,message) VALUES('" + generatedId + "', '" + users.get(i) + "','" + sender_id + "','" + event_id + "','" + title + "','" + message + "')";
-					connectionHandler.executeUpdate(distroKey, query);
+					connectionHandler.executeUpdate(eventDistroKey, query);
 				}
 			} catch (ConnectionHandlerException | SQLException e) {
 				LOGGER.log(Level.SEVERE, e.getMessage(), e);
@@ -577,7 +578,7 @@ public class Booking {
 		} else {
 			String query = "INSERT INTO messages(id, recipient_id,sender_id,event_id,title,message) VALUES('" + generatedId + "', '" + recipient_id + "','" + sender_id + "','" + event_id + "','" + title + "','" + message + "')";
 			try {
-				connectionHandler.executeUpdate(distroKey, query);
+				connectionHandler.executeUpdate(eventDistroKey, query);
 			} catch (ConnectionHandlerException e) {
 				LOGGER.log(Level.SEVERE, e.getMessage(), e);
 				return false;
