@@ -51,7 +51,7 @@
 						Booking bd = new Booking();
 						bd.connect();
 
-						ResultSet rs = bd.getNews(Integer.parseInt(session.getAttribute("userId").toString()));
+						ResultSet rs = bd.getNews(session.getAttribute("userId").toString());
 
 						while (rs.next()) {
 							

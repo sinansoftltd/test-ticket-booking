@@ -36,4 +36,8 @@ public class ResultSet {
 	public String getString(String field) throws SQLException {
 		return current.getString(field);
 	}
+
+	public String getString(int pos) throws SQLException {
+		return current.getString(pos);
+	}
 }

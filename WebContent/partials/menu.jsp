@@ -35,7 +35,7 @@
       		Booking bd = new Booking();
       		bd.connect();
       		
-      		int count = bd.countNewNews(Integer.parseInt(session.getAttribute("userId").toString()));
+      		int count = bd.countNewNews(session.getAttribute("userId").toString());
       		
       		bd.disconnect();
       		

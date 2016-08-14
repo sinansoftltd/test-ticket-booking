@@ -445,12 +445,13 @@ public class Booking {
 	 * @param id - the user (customer)
 	 * @return
 	 */
-	public ResultSet getNews(int id) {
-		String query = "SELECT u.email, u.id as userId, e.id as eventId, e.name, m.title, m.id as messageId, m.readed FROM messages m INNER JOIN users u ON m.sender_id = u.id INNER JOIN events e ON m.event_id = e.id WHERE m.recipient_id = " + id + " ORDER BY m.id, m.readed DESC";
+	public ResultSet getNews(String id) {
+		String distroKey = DistributionUtils.getDistroKey(id);
+		String query = "SELECT u.email, u.id as userId, e.id as eventId, e.name, m.title, m.id as messageId, m.readed FROM messages m INNER JOIN users u ON m.sender_id = u.id INNER JOIN events e ON m.event_id = e.id WHERE m.recipient_id = '" + id + "' ORDER BY m.id, m.readed DESC";
 		ResultSet rs = null;
 		try {
-			rs = statement.executeQuery(query);
-		} catch (SQLException e) {
+			rs = connectionHandler.executeQuery(distroKey, query);
+		} catch (ConnectionHandlerException e) {
 			e.printStackTrace();
 		}
 
@@ -463,14 +464,15 @@ public class Booking {
 	 * @param id - News
 	 * @return
 	 */
-	public ResultSet getMessage(int id) {
-		String query = "SELECT u.email, u.id as userId, e.id as eventId, e.name, m.title, m.id as messageId, m.readed, m.message FROM messages m INNER JOIN users u ON m.sender_id = u.id INNER JOIN events e ON m.event_id = e.id WHERE m.id = " + id;
+	public ResultSet getMessage(String id) {
+		String distroKey = DistributionUtils.getDistroKey(id);
+		String query = "SELECT u.email, u.id as userId, e.id as eventId, e.name, m.title, m.id as messageId, m.readed, m.message FROM messages m INNER JOIN users u ON m.sender_id = u.id INNER JOIN events e ON m.event_id = e.id WHERE m.id = '" + id + "'";
 		ResultSet rs = null;
 		try {
-			statement.executeUpdate("UPDATE messages SET readed = 1 WHERE id = " + id);
-			rs = statement.executeQuery(query);
-		} catch (SQLException e) {
-			e.printStackTrace();
+			connectionHandler.executeUpdate(distroKey, "UPDATE messages SET readed = 1 WHERE id = '" + id + "'");
+			rs = connectionHandler.executeQuery(distroKey, query);
+		} catch (ConnectionHandlerException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		}
 
 		return rs;
@@ -482,13 +484,14 @@ public class Booking {
 	 * @param id - message identifier, which will be the answer
 	 * @return
 	 */
-	public ResultSet reply(int id) {
-		String query = "SELECT m.sender_id as user_id, m.title, e.name, e.id FROM messages m INNER JOIN users u ON m.sender_id = u.id INNER JOIN events e ON m.event_id = e.id WHERE m.id = " + id;
+	public ResultSet reply(String id) {
+		String distroKey = DistributionUtils.getDistroKey(id);
+		String query = "SELECT m.sender_id as user_id, m.title, e.name, e.id FROM messages m INNER JOIN users u ON m.sender_id = u.id INNER JOIN events e ON m.event_id = e.id WHERE m.id = '" + id + "'";
 		ResultSet rs = null;
 		try {
-			rs = statement.executeQuery(query);
-		} catch (SQLException e) {
-			e.printStackTrace();
+			rs = connectionHandler.executeQuery(distroKey, query);
+		} catch (ConnectionHandlerException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		}
 
 		return rs;
@@ -500,16 +503,17 @@ public class Booking {
 	 * @param id - User
 	 * @return
 	 */
-	public int countNewNews(int id) {
-		String query = "SELECT count(*) FROM messages WHERE recipient_id = " + id + " and readed = 0";
+	public int countNewNews(String id) {
+		String distroKey = DistributionUtils.getDistroKey(id);
+		String query = "SELECT count(*) FROM messages WHERE recipient_id = '" + id + "' and readed = 0";
 		ResultSet rs = null;
 		int count = 0;
 		try {
-			rs = statement.executeQuery(query);
+			rs = connectionHandler.executeQuery(distroKey, query);
 			rs.next();
 			count = rs.getInt(1);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (ConnectionHandlerException | SQLException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		}
 
 		return count;
@@ -521,16 +525,17 @@ public class Booking {
 	 * @param id - User
 	 * @return
 	 */
-	public String getEmail(int id) {
-		String query = "SELECT email FROM users WHERE id = " + id;
+	public String getEmail(String id) {
+		String distroKey = DistributionUtils.getDistroKey(id);
+		String query = "SELECT email FROM users WHERE id = '" + id + "'";
 		ResultSet rs = null;
 		String email = "";
 		try {
-			rs = statement.executeQuery(query);
+			rs = connectionHandler.executeQuery(distroKey, query);
 			rs.next();
 			email = rs.getString(1);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (ConnectionHandlerException | SQLException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		}
 
 		return email;
@@ -547,31 +552,33 @@ public class Booking {
 	 * @param message      - the message
 	 * @return true/false
 	 */
-	public boolean sendMessage(int recipient_id, int sender_id, int event_id, String title, String message) {
-		if (recipient_id == 0) {
-			String query = "SELECT user_id FROM reservations WHERE event_id=" + event_id;
+	public boolean sendMessage(String recipient_id, String sender_id, String event_id, String title, String message) {
+		String distroKey = DistributionUtils.getDistroKey(sender_id);
+		String generatedId = DistributionUtils.generateId(distroKey);
+		if (recipient_id == null) {
+			String query = "SELECT user_id FROM reservations WHERE event_id= '" + event_id + "'";
 			ArrayList<Integer> users = new ArrayList<Integer>();
 			try {
-				ResultSet rs = statement.executeQuery(query);
+				ResultSet rs = connectionHandler.executeQuery(distroKey, query);
 				while (rs.next()) {
 					users.add(rs.getInt("user_id"));
 				}
-				rs.close();
+				//rs.close(); TODO
 
 				for (int i = 0; i < users.size(); i++) {
-					query = "INSERT INTO messages(recipient_id,sender_id,event_id,title,message) VALUES(" + users.get(i) + "," + sender_id + "," + event_id + ",'" + title + "','" + message + "')";
-					statement.executeUpdate(query);
+					query = "INSERT INTO messages(id, recipient_id,sender_id,event_id,title,message) VALUES('" + generatedId + "', '" + users.get(i) + "','" + sender_id + "','" + event_id + "','" + title + "','" + message + "')";
+					connectionHandler.executeUpdate(distroKey, query);
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
+			} catch (ConnectionHandlerException | SQLException e) {
+				LOGGER.log(Level.SEVERE, e.getMessage(), e);
 				return false;
 			}
 		} else {
-			String query = "INSERT INTO messages(recipient_id,sender_id,event_id,title,message) VALUES(" + recipient_id + "," + sender_id + "," + event_id + ",'" + title + "','" + message + "')";
+			String query = "INSERT INTO messages(id, recipient_id,sender_id,event_id,title,message) VALUES('" + generatedId + "', '" + recipient_id + "','" + sender_id + "','" + event_id + "','" + title + "','" + message + "')";
 			try {
-				statement.executeUpdate(query);
-			} catch (SQLException e) {
-				e.printStackTrace();
+				connectionHandler.executeUpdate(distroKey, query);
+			} catch (ConnectionHandlerException e) {
+				LOGGER.log(Level.SEVERE, e.getMessage(), e);
 				return false;
 			}
 		}

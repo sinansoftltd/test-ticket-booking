@@ -24,9 +24,9 @@
 				Booking bd = new Booking();
 				bd.connect();
 				
-				int recipient_id = 0;
+				String recipient_id = "";
 				String event_name = "";
-				int event_id = 0;
+				String event_id = "";
 				String recipient_email = "";
 				
 				String re_title = "";
@@ -37,17 +37,17 @@
 						ResultSet rs = bd.getEvent(request.getParameter("id"));
 						rs.next();
 						
-						recipient_id = rs.getInt("user_id");
+						recipient_id = rs.getString("user_id");
 						event_name = rs.getString("name");
-						event_id = rs.getInt("id");
+						event_id = rs.getString("id");
 						recipient_email = bd.getEmail(recipient_id);
 					}else{
-						ResultSet rs = bd.reply(Integer.parseInt(request.getParameter("messageId")));
+						ResultSet rs = bd.reply(request.getParameter("messageId"));
 						rs.next();
 						
-						recipient_id = rs.getInt("user_id");
+						recipient_id = rs.getString("user_id");
 						event_name = rs.getString("name");
-						event_id = rs.getInt("id");
+						event_id = rs.getString("id");
 						re_title = "RE: "+rs.getString("title");
 						recipient_email = bd.getEmail(recipient_id);
 					}
@@ -60,14 +60,14 @@
 						
 						recipient_id = Integer.parseInt(request.getParameter("id"));
 						event_name = rs.getString("name");
-						event_id = rs.getInt("id");
+						event_id = rs.getString("id");
 						recipient_email = bd.getEmail(recipient_id);
 					}else{
 						ResultSet rs = bd.getEvent(request.getParameter("eventId"));
 						rs.next();
 						
 						event_name = rs.getString("name");
-						event_id = rs.getInt("id");
+						event_id = rs.getString("id");
 						recipient_email = "Wszyscy";
 					}
 					
@@ -78,7 +78,7 @@
 					String title = request.getParameter("title");
 					String message = request.getParameter("message");
 									
-					if(bd.sendMessage(recipient_id, Integer.parseInt(session.getAttribute("userId").toString()), event_id, title, message)){
+					if(bd.sendMessage(recipient_id, session.getAttribute("userId").toString(), event_id, title, message)){
 						%>
 							<div class="alert alert-success alert-dismissible" role="alert" style="margin-top: 40px;">
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

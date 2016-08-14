@@ -29,7 +29,7 @@ Jest to strona, ktora wyswietla pojedyncza wiadomosc
 Booking bd = new Booking();
 bd.connect();
 
-ResultSet rs = bd.getMessage(Integer.parseInt(request.getParameter("id")));
+ResultSet rs = bd.getMessage(request.getParameter("id"));
 rs.next();
 
 String eventName = rs.getString("name");
