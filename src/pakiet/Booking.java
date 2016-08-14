@@ -245,26 +245,27 @@ public class Booking {
 	 * @param tickets - the number of reserved tickets
 	 * @return true/false
 	 */
-	public boolean bookTickets(int event, int user, int tickets) {
-		String query = "INSERT INTO reservations(event_id,user_id,tickets) VALUES(" + event + "," + user + "," + tickets + ")";
-		String query_get = "SELECT tickets FROM events WHERE id = " + event;
+	public boolean bookTickets(String event, String user, int tickets) {
+		String distroKey = DistributionUtils.getDistroKey(user);
+		String query = "INSERT INTO reservations(event_id,user_id,tickets) VALUES('" + event + "','" + user + "'," + tickets + ")";
+		String query_get = "SELECT tickets FROM events WHERE id = '" + event + "'";
 
 		try {
-			ResultSet rs = statement.executeQuery(query_get);
+			ResultSet rs = connectionHandler.executeQuery(distroKey, query_get);
 			int tickets_update = 0;
 
 			rs.next();
-			tickets_update = rs.getInt("tickets") - tickets;
+			tickets_update = rs.getInt(0) - tickets;
 
 			if (tickets_update < 0) {
 				return false;
 			} else {
-				statement.executeUpdate(query);
-				statement.executeUpdate("UPDATE events SET tickets = " + tickets_update + " WHERE id =" + event);
+				connectionHandler.executeUpdate(distroKey, query);
+				connectionHandler.executeUpdate(distroKey, "UPDATE events SET tickets = " + tickets_update + " WHERE id = '" + event + "'");
 				return true;
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (ConnectionHandlerException | SQLException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			return false;
 		}
 	}
@@ -275,13 +276,14 @@ public class Booking {
 	 * @param id - User
 	 * @return rs
 	 */
-	public ResultSet getReservationList(int id) {
-		String query = "SELECT e.name, e.city, e.place, e.eventDate, e.price, r.tickets, r.id FROM reservations r INNER JOIN events e ON r.event_id = e.id WHERE r.user_id = " + id;
+	public ResultSet getReservationList(String id) {
+		String distroKey = DistributionUtils.getDistroKey(id);
+		String query = "SELECT e.name, e.city, e.place, e.eventDate, e.price, r.tickets, r.id FROM reservations r INNER JOIN events e ON r.event_id = e.id WHERE r.user_id = '" + id + "'";
 		ResultSet rs = null;
 		try {
-			rs = statement.executeQuery(query);
-		} catch (SQLException e) {
-
+			rs = connectionHandler.executeQuery(distroKey, query);
+		} catch (ConnectionHandlerException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		}
 
 		return rs;
@@ -293,13 +295,14 @@ public class Booking {
 	 * @param id - booking
 	 * @return
 	 */
-	public ResultSet getReservations(int id) {
-		String query = "SELECT e.name, e.city, e.place, e.eventDate, e.price, e.id, r.tickets, r.id FROM reservations r INNER JOIN events e ON r.event_id = e.id WHERE r.id = " + id;
+	public ResultSet getReservations(String id) {
+		String distroKey = DistributionUtils.getDistroKey(id);
+		String query = "SELECT e.name, e.city, e.place, e.eventDate, e.price, e.id, r.tickets, r.id FROM reservations r INNER JOIN events e ON r.event_id = e.id WHERE r.id = '" + id + "'";
 		ResultSet rs = null;
 		try {
-			rs = statement.executeQuery(query);
-		} catch (SQLException e) {
-
+			rs = connectionHandler.executeQuery(distroKey, query);
+		} catch (ConnectionHandlerException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		}
 
 		return rs;

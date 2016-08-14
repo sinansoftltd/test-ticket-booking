@@ -56,7 +56,7 @@
 					Booking bd = new Booking();
 					bd.connect();
 					
-					ResultSet rs = bd.getReservationList(Integer.parseInt(session.getAttribute("userId").toString()));
+					ResultSet rs = bd.getReservationList(session.getAttribute("userId").toString());
 					
 					while(rs.next()){
 						out.print("<tr>");

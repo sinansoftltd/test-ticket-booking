@@ -27,7 +27,7 @@
 					Booking bd = new Booking();
 					bd.connect();
 					
-					ResultSet rs = bd.getReservations(Integer.parseInt(request.getParameter("id").toString()));
+					ResultSet rs = bd.getReservations(request.getParameter("id").toString());
 
 					int id = 0;
 
