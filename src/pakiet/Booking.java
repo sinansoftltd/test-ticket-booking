@@ -341,15 +341,15 @@ public class Booking {
 			ResultSet rs = connectionHandler.executeQuery(distroKey, "SELECT tickets, event_id, user_id FROM reservations WHERE id = '" + id + "'");
 			rs.next();
 
-			int tickets = rs.getInt("tickets");
-			int event_id = rs.getInt("event_id");
-			int recipient_id = rs.getInt("user_id");
+			String tickets = rs.getString("tickets");
+			String event_id = rs.getString("event_id");
+			String recipient_id = rs.getString("user_id");
 
 			rs = connectionHandler.executeQuery(distroKey, "SELECT tickets, user_id FROM events WHERE id = '" + event_id + "'");
 			rs.next();
 
 			int event_tickets = rs.getInt("tickets");
-			int sender_id = rs.getInt("user_id");
+			String sender_id = rs.getString("user_id");
 
 			connectionHandler.executeUpdate(distroKey, "UPDATE events SET tickets = " + (event_tickets + tickets) + " WHERE id= '" + event_id + "'");
 			connectionHandler.executeUpdate(distroKey, query);
@@ -407,14 +407,14 @@ public class Booking {
 			ResultSet rs = connectionHandler.executeQuery(distroKey, "SELECT tickets, event_id, user_id FROM reservations WHERE event_id = '" + id + "'");
 
 			ArrayList<Integer> tickets = new ArrayList<Integer>();
-			ArrayList<Integer> event_id = new ArrayList<Integer>();
-			ArrayList<Integer> recipient_id = new ArrayList<Integer>();
+			ArrayList<String> event_id = new ArrayList<String>();
+			ArrayList<String> recipient_id = new ArrayList<String>();
 
-			int sender_id = 0;
+			String sender_id = "";
 			while (rs.next()) {
 				tickets.add(rs.getInt("tickets"));
-				event_id.add(rs.getInt("event_id"));
-				recipient_id.add(rs.getInt("user_id"));
+				event_id.add(rs.getString("event_id"));
+				recipient_id.add(rs.getString("user_id"));
 			}
 			//rs.close(); TODO
 
@@ -423,7 +423,7 @@ public class Booking {
 				rs.next();
 
 				int event_tickets = rs.getInt("tickets");
-				sender_id = rs.getInt("user_id");
+				sender_id = rs.getString("user_id");
 
 				connectionHandler.executeUpdate(distroKey, "UPDATE events SET tickets = " + (event_tickets + tickets.get(i)) + " WHERE id= '" + event_id.get(i) + "'");
 				sendMessage(recipient_id.get(i), sender_id, event_id.get(i), "Anulowanie rezerwacji", "Twoja rezerwacja została anulowana. Aby uzyskać więcej szczegółów skontaktuj się z organizatorem.");
