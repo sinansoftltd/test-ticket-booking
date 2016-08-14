@@ -13,8 +13,8 @@ import java.util.List;
 public class ConnectionHandler {
 	List<Database> connectedDatabases = new ArrayList<>();
 	List<Database> databases = Arrays.asList(
-			new Database("01", "localhost", "sinan_RezerwacjeBiletow", "root", "", "com.mysql.jdbc.Driver", "jdbc:mysql://{server}:3306/{database}?useUnicode=true&characterEncoding=utf8"),
-			new Database("02", "localhost", "sinan_RezerwacjeBiletow", "root", "", "com.mysql.jdbc.Driver", "jdbc:mysql://{server}:3306/{database}?useUnicode=true&characterEncoding=utf8"));
+			new Database("01", "localhost", "sinan_RezerwacjeBiletow_1", "root", "", "com.mysql.jdbc.Driver", "jdbc:mysql://{server}:3306/{database}?useUnicode=true&characterEncoding=utf8"),
+			new Database("02", "localhost", "sinan_RezerwacjeBiletow_2", "root", "", "com.mysql.jdbc.Driver", "jdbc:mysql://{server}:3306/{database}?useUnicode=true&characterEncoding=utf8"));
 
 	/**
 	 * @return list of connected databases

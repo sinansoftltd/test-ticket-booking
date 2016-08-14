@@ -41,16 +41,16 @@ public class Booking {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * The method records in the database of the new user.
-	 * 
-	 * @param email - Email User
+	 *
+	 * @param email    - Email User
 	 * @param password - User użytkownika
-	 * @param type - type of user
+	 * @param type     - type of user
 	 * @return true/false
 	 */
-	public boolean register(String email, String password, String type){
+	public boolean register(String email, String password, String type) {
 		String query = "INSERT INTO users(email,password,type) VALUES('" + email + "','" + password + "','" + type + "')";
 		try {
 			statement.executeUpdate(query);
