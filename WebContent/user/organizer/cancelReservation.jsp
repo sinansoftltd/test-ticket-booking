@@ -35,7 +35,7 @@
 						id = rs.getInt("id");
 					}
 
-					if (bd.cancelReservations(Integer.parseInt(request.getParameter("id").toString()))) {
+					if (bd.cancelReservations(request.getParameter("id").toString())) {
 						response.sendRedirect("reservations.jsp?id="+id);
 					} else {
 			%>

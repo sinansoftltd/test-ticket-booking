@@ -48,7 +48,7 @@ po anulowaniu rezerwacji od razu nastepuje przekierowanie na strone z rezerwacja
 						int tickets = Integer.parseInt(request.getParameter("tickets"));
 						
 						if(Integer.parseInt(tickets_db)==tickets){
-							if(bd.cancelReservations(Integer.parseInt(request.getParameter("id").toString()))){
+							if(bd.cancelReservations(request.getParameter("id").toString())){
 								response.sendRedirect("reservations.jsp");
 							}else{
 								%>
@@ -56,7 +56,7 @@ po anulowaniu rezerwacji od razu nastepuje przekierowanie na strone z rezerwacja
 								<%
 							}	
 						}else{
-							if(bd.cancelReservations(Integer.parseInt(request.getParameter("id").toString()), tickets)){
+							if(bd.cancelReservations(request.getParameter("id").toString(), tickets)){
 								response.sendRedirect("reservations.jsp");
 							}else{
 								%>

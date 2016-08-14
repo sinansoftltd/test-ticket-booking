@@ -29,6 +29,10 @@ public class ResultSet {
 		return current.getInt(pos);
 	}
 
+	public int getInt(String pos) throws SQLException {
+		return current.getInt(pos);
+	}
+
 	public String getString(String field) throws SQLException {
 		return current.getString(field);
 	}

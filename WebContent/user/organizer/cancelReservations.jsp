@@ -26,7 +26,7 @@
 					Booking bd = new Booking();
 					bd.connect();
 
-					if (bd.cancelAllReservations(Integer.parseInt(request.getParameter("id").toString()))) {
+					if (bd.cancelAllReservations(request.getParameter("id").toString())) {
 						response.sendRedirect("reservations.jsp?id="+request.getParameter("id").toString());
 					} else {
 			%>

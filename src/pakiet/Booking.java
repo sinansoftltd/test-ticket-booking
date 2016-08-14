@@ -314,13 +314,14 @@ public class Booking {
 	 * @param id - the event
 	 * @return
 	 */
-	public ResultSet getReservationsEvents(int id) {
-		String query = "SELECT u.email, u.id as userId, r.tickets, r.id as reservationId FROM reservations r INNER JOIN users u ON r.user_id = u.id WHERE r.event_id = " + id;
+	public ResultSet getReservationsEvents(String id) {
+		String distroKey = DistributionUtils.getDistroKey(id);
+		String query = "SELECT u.email, u.id as userId, r.tickets, r.id as reservationId FROM reservations r INNER JOIN users u ON r.user_id = u.id WHERE r.event_id = '" + id + "'";
 		ResultSet rs = null;
 		try {
-			rs = statement.executeQuery(query);
-		} catch (SQLException e) {
-
+			rs = connectionHandler.executeQuery(distroKey, query);
+		} catch (ConnectionHandlerException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		}
 
 		return rs;
@@ -333,27 +334,28 @@ public class Booking {
 	 * @param id - booking
 	 * @return
 	 */
-	public boolean cancelReservations(int id) {
-		String query = "DELETE FROM reservations WHERE id = " + id;
+	public boolean cancelReservations(String id) {
+		String distroKey = DistributionUtils.getDistroKey(id);
+		String query = "DELETE FROM reservations WHERE id = '" + id + "'";
 		try {
-			ResultSet rs = statement.executeQuery("SELECT tickets, event_id, user_id FROM reservations WHERE id =" + id);
+			ResultSet rs = connectionHandler.executeQuery(distroKey, "SELECT tickets, event_id, user_id FROM reservations WHERE id = '" + id + "'");
 			rs.next();
 
 			int tickets = rs.getInt("tickets");
 			int event_id = rs.getInt("event_id");
 			int recipient_id = rs.getInt("user_id");
 
-			rs = statement.executeQuery("SELECT tickets, user_id FROM events WHERE id =" + event_id);
+			rs = connectionHandler.executeQuery(distroKey, "SELECT tickets, user_id FROM events WHERE id = '" + event_id + "'");
 			rs.next();
 
 			int event_tickets = rs.getInt("tickets");
 			int sender_id = rs.getInt("user_id");
 
-			statement.executeUpdate("UPDATE events SET tickets = " + (event_tickets + tickets) + " WHERE id=" + event_id);
-			statement.executeUpdate(query);
+			connectionHandler.executeUpdate(distroKey, "UPDATE events SET tickets = " + (event_tickets + tickets) + " WHERE id= '" + event_id + "'");
+			connectionHandler.executeUpdate(distroKey, query);
 			sendMessage(recipient_id, sender_id, event_id, "Anulowanie rezerwacji", "Twoja rezerwacja została anulowana. Aby uzyskać więcej szczegółów skontaktuj się z organizatorem.");
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (ConnectionHandlerException | SQLException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			return false;
 		}
 
@@ -367,24 +369,25 @@ public class Booking {
 	 * @param tickets - number of tickets to be canceled
 	 * @return true/false
 	 */
-	public boolean cancelReservations(int id, int tickets) {
-		String query = "SELECT tickets, event_id FROM reservations WHERE id = " + id;
+	public boolean cancelReservations(String id, int tickets) {
+		String distroKey = DistributionUtils.getDistroKey(id);
+		String query = "SELECT tickets, event_id FROM reservations WHERE id = '" + id + "'";
 		try {
-			ResultSet rs = statement.executeQuery(query);
+			ResultSet rs = connectionHandler.executeQuery(distroKey, query);
 			rs.next();
 			int tickets_db = rs.getInt("tickets");
 			int event_id = rs.getInt("event_id");
 
-			rs = statement.executeQuery("SELECT tickets FROM events WHERE id =" + event_id);
+			rs = connectionHandler.executeQuery(distroKey, "SELECT tickets FROM events WHERE id = '" + event_id + "'");
 			rs.next();
 
 			int event_tickets = rs.getInt("tickets");
 			tickets_db = tickets_db - tickets;
 
-			statement.executeUpdate("UPDATE reservations SET tickets = " + tickets_db + " WHERE id =" + id);
-			statement.executeUpdate("UPDATE events SET tickets = " + (event_tickets + tickets) + " WHERE id=" + event_id);
-		} catch (SQLException e) {
-			e.printStackTrace();
+			connectionHandler.executeUpdate(distroKey, "UPDATE reservations SET tickets = " + tickets_db + " WHERE id = '" + id + "'");
+			connectionHandler.executeUpdate(distroKey, "UPDATE events SET tickets = " + (event_tickets + tickets) + " WHERE id= '" + event_id + "'");
+		} catch (ConnectionHandlerException | SQLException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			return false;
 		}
 
@@ -397,10 +400,11 @@ public class Booking {
 	 * @param id - the event
 	 * @return
 	 */
-	public boolean cancelAllReservations(int id) {
-		String query = "DELETE FROM reservations WHERE event_id = " + id;
+	public boolean cancelAllReservations(String id) {
+		String distroKey = DistributionUtils.getDistroKey(id);
+		String query = "DELETE FROM reservations WHERE event_id = '" + id + "'";
 		try {
-			ResultSet rs = statement.executeQuery("SELECT tickets, event_id, user_id FROM reservations WHERE event_id =" + id);
+			ResultSet rs = connectionHandler.executeQuery(distroKey, "SELECT tickets, event_id, user_id FROM reservations WHERE event_id = '" + id + "'");
 
 			ArrayList<Integer> tickets = new ArrayList<Integer>();
 			ArrayList<Integer> event_id = new ArrayList<Integer>();
@@ -412,23 +416,23 @@ public class Booking {
 				event_id.add(rs.getInt("event_id"));
 				recipient_id.add(rs.getInt("user_id"));
 			}
-			rs.close();
+			//rs.close(); TODO
 
 			for (int i = 0; i < tickets.size(); i++) {
-				rs = statement.executeQuery("SELECT tickets, user_id FROM events WHERE id =" + event_id.get(i));
+				rs = connectionHandler.executeQuery(distroKey, "SELECT tickets, user_id FROM events WHERE id = '" + event_id.get(i) + "'");
 				rs.next();
 
 				int event_tickets = rs.getInt("tickets");
 				sender_id = rs.getInt("user_id");
 
-				statement.executeUpdate("UPDATE events SET tickets = " + (event_tickets + tickets.get(i)) + " WHERE id=" + event_id.get(i));
+				connectionHandler.executeUpdate(distroKey, "UPDATE events SET tickets = " + (event_tickets + tickets.get(i)) + " WHERE id= '" + event_id.get(i) + "'");
 				sendMessage(recipient_id.get(i), sender_id, event_id.get(i), "Anulowanie rezerwacji", "Twoja rezerwacja została anulowana. Aby uzyskać więcej szczegółów skontaktuj się z organizatorem.");
-				rs.close();
+				//rs.close(); TODO
 			}
 
-			statement.executeUpdate(query);
-		} catch (SQLException e) {
-			e.printStackTrace();
+			connectionHandler.executeUpdate(distroKey, query);
+		} catch (ConnectionHandlerException | SQLException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 			return false;
 		}
 

@@ -73,7 +73,7 @@ String eventName = rs.getString("name");
 				<tbody>
 					<%	
 										
-					rs = bd.getReservationsEvents(Integer.parseInt(request.getParameter("id")));
+					rs = bd.getReservationsEvents(request.getParameter("id"));
 					
 					while(rs.next()){
 						out.print("<tr>");
