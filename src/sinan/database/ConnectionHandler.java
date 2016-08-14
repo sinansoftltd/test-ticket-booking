@@ -77,7 +77,7 @@ public class ConnectionHandler {
 		List<java.sql.ResultSet> results = new ArrayList<>();
 		for (Database connectedDB : connectedDatabases) {
 			try {
-				if (connectedDB.getDistributionKey().equals(distroKey)) {
+				if (distroKey == null || connectedDB.getDistributionKey().equals(distroKey)) {
 					results.add(
 							connectedDB.getStatement().executeQuery(query));
 				}
