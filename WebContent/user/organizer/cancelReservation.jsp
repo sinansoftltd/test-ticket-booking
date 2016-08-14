@@ -32,7 +32,7 @@
 					int id = 0;
 
 					if (rs != null && rs.next()) {
-						id = rs.getInt("id");
+						id = rs.getString("id");
 					}
 
 					if (bd.cancelReservations(request.getParameter("id").toString())) {

@@ -50,7 +50,7 @@ session.removeAttribute("userId");
 			        if(rs != null && rs.next()){
 			        	session.setAttribute( "userLogin", rs.getString("email"));
 			        	session.setAttribute( "userType", rs.getString("type"));
-			        	session.setAttribute( "userId", rs.getInt("id"));
+			        	session.setAttribute( "userId", rs.getString("id"));
 			        	
 			        	response.sendRedirect("index.jsp");
 			        }else{

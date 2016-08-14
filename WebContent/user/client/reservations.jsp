@@ -68,9 +68,9 @@
 						out.print("<td>"+rs.getInt("tickets")+"</td>");
 						out.print("<td>"+(rs.getDouble("price")*rs.getInt("tickets"))+" zł</td>");
 						out.print("<td>");
-						//out.print("<a href=\"user/organizer/editEvent.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-primary\">Edytuj</a> ");
-						out.print("<a href=\"user/client/newMessage.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-info\">Wiadomość</a> ");
-						out.print("<a href=\"user/client/cancelReservation.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-danger\">Anuluj</a>");
+						//out.print("<a href=\"user/organizer/editEvent.jsp?id="+rs.getString("id")+"\" class=\"btn btn-primary\">Edytuj</a> ");
+						out.print("<a href=\"user/client/newMessage.jsp?id="+rs.getString("id")+"\" class=\"btn btn-info\">Wiadomość</a> ");
+						out.print("<a href=\"user/client/cancelReservation.jsp?id="+rs.getString("id")+"\" class=\"btn btn-danger\">Anuluj</a>");
 						out.print("</td>");						
 						out.print("</tr>");
 					}

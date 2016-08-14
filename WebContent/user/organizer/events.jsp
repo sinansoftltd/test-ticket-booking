@@ -97,9 +97,9 @@
 						out.print("<td>"+rs.getString("tickets")+"</td>");
 						out.print("<td>"+rs.getString("price")+" zł</td>");
 						out.print("<td>");
-						out.print("<a href=\"user/organizer/reservations.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-info\">Reservations</a> ");
-						out.print("<a href=\"user/organizer/editEvent.jsp?id="+rs.getInt("id")+"\" class=\"btn btn-primary\">Edit</a> ");
-						out.print("<button class=\"btn btn-danger\" onclick=\"confirmDelete("+rs.getInt("id")+")\">Delete</button>");
+						out.print("<a href=\"user/organizer/reservations.jsp?id="+rs.getString("id")+"\" class=\"btn btn-info\">Reservations</a> ");
+						out.print("<a href=\"user/organizer/editEvent.jsp?id="+rs.getString("id")+"\" class=\"btn btn-primary\">Edit</a> ");
+						out.print("<button class=\"btn btn-danger\" onclick=\"confirmDelete("+rs.getString("id")+")\">Delete</button>");
 						out.print("</td>");						
 						out.print("</tr>");
 					}
