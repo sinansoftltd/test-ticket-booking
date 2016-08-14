@@ -13,8 +13,9 @@ import java.util.List;
 public class ConnectionHandler {
 	List<Database> connectedDatabases = new ArrayList<>();
 	List<Database> databases = Arrays.asList(
-			new Database("01", "localhost", "sinan_RezerwacjeBiletow_1", "root", "", "com.mysql.jdbc.Driver", "jdbc:mysql://{server}:3306/{database}?useUnicode=true&characterEncoding=utf8"),
-			new Database("02", "localhost", "sinan_RezerwacjeBiletow_2", "root", "", "com.mysql.jdbc.Driver", "jdbc:mysql://{server}:3306/{database}?useUnicode=true&characterEncoding=utf8"));
+			new Database("01", "localhost", "sinanser_booking_1", "sinanser_bk_usr", "}bQ.G5tQ-=cz", "com.mysql.jdbc.Driver", "jdbc:mysql://{server}:3306/{database}?useUnicode=true&characterEncoding=utf8"),
+			new Database("02", "localhost", "sinanser_booking_2", "sinanser_bk_usr", "}bQ.G5tQ-=cz", "com.mysql.jdbc.Driver", "jdbc:mysql://{server}:3306/{database}?useUnicode=true&characterEncoding=utf8"));
+			//new Database("11", "localhost", "sinanser_booking_psgre", "sinanser_bk_usr", "}bQ.G5tQ-=cz", "org.postgresql.Driver", "jdbc:postgresql://{server}:5432/{database}"));
 
 	/**
 	 * @return list of connected databases
