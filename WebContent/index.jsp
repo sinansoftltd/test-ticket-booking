@@ -52,13 +52,13 @@
 						bd.connect();
 
 						ResultSet rs = bd.getEvents();
-						
+
 						Date today = new Date();
 
 						while (rs.next()) {
-							
+
 							Date event = rs.getDate("eventDate");
-							
+
 							out.print("<tr>");
 
 							out.print("<td>" + rs.getString("name") + "</td>");

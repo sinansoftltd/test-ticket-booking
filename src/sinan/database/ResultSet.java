@@ -1,5 +1,6 @@
 package sinan.database;
 
+import java.sql.Date;
 import java.sql.SQLException;
 
 /**
@@ -39,5 +40,9 @@ public class ResultSet {
 
 	public String getString(int pos) throws SQLException {
 		return current.getString(pos);
+	}
+
+	public Date getDate(String field) throws SQLException {
+		return current.getDate(field);
 	}
 }
