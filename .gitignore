@@ -25,5 +25,5 @@ local.properties
 .recommenders
 .project
 
-.classpath
+#.classpath
 
