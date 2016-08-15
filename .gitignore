@@ -8,7 +8,7 @@
 
 
 # Package Files #
-*.jar
+# *.jar
 
 ### Eclipse template
 
@@ -25,5 +25,5 @@ local.properties
 .recommenders
 .project
 
-.classpath
+#.classpath
 
