@@ -7,7 +7,7 @@ What we have done based on basic preliminary application:
 - Another new implementation of ResultSet added to project to support retrieving results from multiple database connections.
 - DistributionUtils class implemented to support our basic operations regarding distributions.
 
-#### How it works?
+### How it works?
 Current application is configured to distribute using 2 **MySQL** databases (servers) and a **PostgreSQL** database. You can add any other database configuration at any time, you just need to update ConnectionHandler and add your own configurations. Also adding more databases while we have some records in our database is possible without breaking relations or loosing data.
 
 We've changed ID format for all tables as follow: _{distributionKey}_:_UUID_ like:
@@ -20,7 +20,7 @@ Choosing database to add new records into, are based on new registrations. Whene
 
 Queries without conditions to find the target database will be executed on all connected databases so if you run a select query, it will return the result as a customized ResultSet object which will use all connected databases to retrieve records.
 
-#### How to setup
+### How to setup
 Clone the git repository and open it via IntelliJ or Eclipse. Also you need to import _mysql.sql_ and _postgresql.sql_ files. You can change your database configurations from ConnectionHandler class.
 <br />
 Also checkout server-release branch to see some changes we've done to deploy the application.
