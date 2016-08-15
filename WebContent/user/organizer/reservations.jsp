@@ -44,9 +44,11 @@ Booking bd = new Booking();
 bd.connect();
 
 ResultSet rs = bd.getEvent(request.getParameter("id"));
-rs.next();
-
-String eventName = rs.getString("name");
+	String eventName = "";
+	if (rs != null) {
+		rs.next();
+		eventName = rs.getString("name");
+	}
 %>
 
 <div class="container">
@@ -75,7 +77,7 @@ String eventName = rs.getString("name");
 										
 					rs = bd.getReservationsEvents(request.getParameter("id"));
 					
-					while(rs.next()){
+					while(rs != null && rs.next()){
 						out.print("<tr>");
 						
 						out.print("<td>"+rs.getString("email")+"</td>");
