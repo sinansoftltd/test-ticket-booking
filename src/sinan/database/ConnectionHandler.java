@@ -1,20 +1,39 @@
 package sinan.database;
 
+import sinan.utils.PropertiesParser;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Moderates all databases and open connections
  */
 public class ConnectionHandler {
-	List<Database> connectedDatabases = new ArrayList<>();
-	List<Database> databases = Arrays.asList(
-			new Database("01", "localhost", "sinan_RezerwacjeBiletow_1", "root", "", "com.mysql.jdbc.Driver", "jdbc:mysql://{server}:3306/{database}?useUnicode=true&characterEncoding=utf8"),
-			new Database("02", "localhost", "sinan_RezerwacjeBiletow_2", "root", "", "com.mysql.jdbc.Driver", "jdbc:mysql://{server}:3306/{database}?useUnicode=true&characterEncoding=utf8"));
+
+	private static final Logger LOGGER = Logger.getLogger(ConnectionHandler.class.getName());
+	private List<Database> connectedDatabases = new ArrayList<>();
+	private final List<Database> databases; //must be initialized in constructor
+
+	/**
+	 * Read database.properties file and initialize database list.
+	 */
+	public ConnectionHandler() {
+		List<Database> databaseList = new ArrayList<>();
+		try {
+			databaseList.addAll(new PropertiesParser().getDatabases("database.properties"));
+		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
+		}
+
+		databases = databaseList;
+	}
 
 	/**
 	 * @return list of connected databases
