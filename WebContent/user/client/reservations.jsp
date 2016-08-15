@@ -58,7 +58,7 @@
 					
 					ResultSet rs = bd.getReservationList(session.getAttribute("userId") != null ? session.getAttribute("userId").toString() : "");
 					
-					while(rs.next()){
+					while(rs != null && rs.next()){
 						out.print("<tr>");
 						
 						out.print("<td>"+rs.getString("name")+"</td>");
