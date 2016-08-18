@@ -12,6 +12,9 @@ What we have done based on basic preliminary application:
 Live version:
 `http://sinanserver.net:8080/RezerwacjeBiletow/`
 
+Diagrams and Java-Docs are available in `/docs` folder of repository.
+
+
 ### How it works?
 Current application is configured to distribute using 2 **MySQL** databases (servers) and a **PostgreSQL** database. You can add any other database configuration at any time, you just need to update `src/ressources/database.properties` and add your own configurations. Also adding more databases while we have some records in our database is possible without breaking relations or loosing data.
 
