@@ -18,7 +18,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.jsp">Ticket Reservations</a>
+      <a class="navbar-brand" href="index.jsp">Opera</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->

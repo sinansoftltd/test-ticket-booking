@@ -37,12 +37,12 @@
 			<table id="dataTable" class="table table-striped table-bordered">
 				<thead>
 					<tr>
-						<th>Event</th>
-						<th>City</th>
-						<th>Place</th>
+						<th>Wydarzenia</th>
+						<th>Miasto</th>
+						<th>Miejsce</th>
 						<th>Data</th>
-						<th>Tickets #</th>
-						<th>Ticket price</th>
+						<th>Bilety</th>
+						<th>Cena</th>
 						<th>Akcje</th>
 					</tr>
 				</thead>
@@ -69,19 +69,19 @@
 							out.print("<td>" + rs.getString("price") + " zł</td>");
 							out.print("<td>");
 							if(canBook){
-								out.print("<a href=\"user/client/newMessage.jsp?id="+rs.getString("id")+"\" class=\"btn btn-info\">Message</a> ");
+								out.print("<a href=\"user/client/newMessage.jsp?id="+rs.getString("id")+"\" class=\"btn btn-info\">Wiadomość</a> ");
 							}else{
-								out.print("<a href=\"user/client/newMessage.jsp?id="+rs.getString("id")+"\" class=\"btn btn-info\" disabled>Message</a> ");
+								out.print("<a href=\"user/client/newMessage.jsp?id="+rs.getString("id")+"\" class=\"btn btn-info\" disabled>Wiadomość</a> ");
 							}
 							if(Integer.parseInt(rs.getString("tickets")) == 0){
-								out.print("<a href=\"book.jsp?id="+rs.getString("id")+"\" class=\"btn btn-primary\" disabled>No tickets</a>");
+								out.print("<a href=\"book.jsp?id="+rs.getString("id")+"\" class=\"btn btn-primary\" disabled>Brak biletów</a>");
 							}else if(today.after(event)){
-								out.print("<a href=\"book.jsp?id="+rs.getString("id")+"\" class=\"btn btn-primary\" disabled>Book</a>");
+								out.print("<a href=\"book.jsp?id="+rs.getString("id")+"\" class=\"btn btn-primary\" disabled>Zerezerwuj</a>");
 							}else{
 								if(canBook){
-									out.print("<a href=\"book.jsp?id="+rs.getString("id")+"\" class=\"btn btn-primary\">Book</a>");
+									out.print("<a href=\"book.jsp?id="+rs.getString("id")+"\" class=\"btn btn-primary\">Zerezerwuj</a>");
 								}else{
-									out.print("<a href=\"book.jsp?id="+rs.getString("id")+"\" class=\"btn btn-primary\" disabled>Book</a>");
+									out.print("<a href=\"book.jsp?id="+rs.getString("id")+"\" class=\"btn btn-primary\" disabled>Zerezerwuj</a>");
 								}
 							}
 							out.print("</td>");

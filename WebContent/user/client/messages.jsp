@@ -38,7 +38,7 @@
 					<tr>
 						<th>Sender</th>
 						<th>Topic</th>
-						<th>Event</th>
+						<th>Wydarzenia</th>
 						<th>Akcje</th>
 					</tr>
 				</thead>
