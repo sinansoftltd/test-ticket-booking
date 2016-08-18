@@ -63,12 +63,12 @@
 						<div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
-						<label for="city">City</label>
+						<label for="city">Miasto</label>
 						<input type="text" class="form-control" id="city" name="city" required>
 						<div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
-						<label for="place">Place</label>
+						<label for="place">Miejsce</label>
 						<input type="text" class="form-control" id="place" name="place" required>
 						<div class="help-block with-errors"></div>
 					</div>
@@ -78,12 +78,12 @@
 						<div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
-						<label for="price">Ticket price</label>
+						<label for="price">Cena</label>
 						<input type="text" class="form-control" id="price" name="price" required pattern="^[0-9]*\.[0-9]{2}$">
 						<div class="help-block with-errors"></div>
 					</div>
 					<div class="form-group">
-						<label for="tickets">Number of tickets</label>
+						<label for="tickets">Bilety</label>
 						<input type="number" class="form-control" id="tickets" name="tickets" required value="1" min="1">
 						<div class="help-block with-errors"></div>
 					</div>

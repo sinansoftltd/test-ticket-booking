@@ -73,12 +73,12 @@
 			<table id="dataTable" class="table table-striped table-bordered">
 				<thead>
 					<tr>
-						<th>Event</th>
-						<th>City</th>
-						<th>Place</th>
+						<th>Wydarzenia</th>
+						<th>Miasto</th>
+						<th>Miejsce</th>
 						<th>Data</th>
-						<th>Number of tickets</th>
-						<th>Ticket price</th>
+						<th>Bilety</th>
+						<th>Cena</th>
 						<th>Akcje</th>
 					</tr>
 				</thead>				
