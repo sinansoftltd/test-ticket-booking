@@ -29,7 +29,7 @@ CREATE TABLE events (
     name character varying(255),
     city character varying(255),
     place character varying(255),
-    "eventDate" timestamp without time zone,
+    "eventdate" timestamp without time zone,
     price double precision,
     tickets integer
 );

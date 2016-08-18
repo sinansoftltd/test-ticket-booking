@@ -274,12 +274,12 @@ public class Booking {
 	/**
 	 * This method retrieves a list of the reservation's
 	 *
-	 * @param id - User
+	 * @param userId - User
 	 * @return rs
 	 */
-	public ResultSet getReservationList(String id) {
+	public ResultSet getReservationList(String userId) {
 //		String distroKey = DistributionUtils.getDistroKey(id);
-		String query = "SELECT e.name, e.city, e.place, e.eventDate, e.price, r.tickets, r.id FROM reservations r INNER JOIN events e ON r.event_id = e.id WHERE r.user_id = '" + id + "'";
+		String query = "SELECT e.name, e.city, e.place, e.eventDate, e.price, r.tickets, r.id FROM reservations r INNER JOIN events e ON r.event_id = e.id WHERE r.user_id = '" + userId + "'";
 		ResultSet rs = null;
 		try {
 			rs = connectionHandler.executeQuery(null, query);
